@@ -13719,6 +13719,13 @@ react-hotkeys@2.0.0-pre4:
   dependencies:
     prop-types "^15.6.1"
 
+react-icons-eva@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/react-icons-eva/-/react-icons-eva-0.1.1.tgz#1b7eec4ad96646e74f693f9485ed56a96c577220"
+  integrity sha512-zxoiuVbXhLdUX81UHI3WPBh9ZI1oIznXvRlB4tf/oUWJzndc/PdVfqUOmv1tVC3QsY5djSsDAENSTddqRRUxAw==
+  dependencies:
+    camelcase "^5.0.0"
+
 react-inspector@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/react-inspector/-/react-inspector-3.0.2.tgz#c530a06101f562475537e47df428e1d7aff16ed8"
