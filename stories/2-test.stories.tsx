@@ -6,13 +6,18 @@ export default {
 };
 
 export const text = () => {
-  const [visible, toggle, show, hide] = useModal(true);
+  const [visible, toggle, show, hide] = useModal(false);
   return (
-    <Modal
-      visible={visible}
-      onCancel={() => {
-        console.log("隐藏时回调"), hide();
-      }}
-    >真不容易ia</Modal>
+    <div>
+      <button onClick={show}>显示弹层</button>
+      <Modal
+        visible={visible}
+        onCancel={() => {
+          console.log("隐藏时回调"), hide();
+        }}
+      >
+        真不容易ia
+      </Modal>
+    </div>
   );
 };

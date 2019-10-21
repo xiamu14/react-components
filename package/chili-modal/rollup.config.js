@@ -29,9 +29,7 @@ export default {
   plugins: [
     external(),
     scss(),
-    postcss({
-      modules: true
-    }),
+    postcss(),
     url(),
     svgr(),
     resolve(),

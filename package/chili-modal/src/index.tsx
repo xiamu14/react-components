@@ -16,7 +16,11 @@ interface Props {
 
 const Modal: React.FC<Props> = props => {
   const { visible, onCancel } = props;
-  const springStyle = useSpring({ opacity: 1, from: { opacity: 0 } });
+  const springStyle = useSpring({
+    opacity: visible ? 1 : 0,
+    transform: `scale(${visible ? 1 : 0})`
+  });
+
   return visible
     ? ReactDOM.createPortal(
         <React.Fragment>
@@ -28,19 +32,21 @@ const Modal: React.FC<Props> = props => {
             role="dialog"
             style={springStyle}
           >
+            <div className="modal-overlay" onClick={onCancel}></div>
             <div className="modal">
               <div className="modal-header">
-                <button
-                  type="button"
+                <div
                   className="modal-close-button"
                   data-dismiss="modal"
                   aria-label="Close"
                   onClick={onCancel}
                 >
-                  <EvaCloseOutline size="22px" />
-                </button>
+                  <EvaCloseOutline size="22px" color="rgba(0,0,0,.45)" />
+                </div>
               </div>
-              {props.children ? props.children : <p>Hello, I'm a modal.</p>}
+              <div className="modal-content">
+                {props.children ? props.children : <p>Hello, I'm a modal.</p>}
+              </div>
             </div>
           </animated.div>
         </React.Fragment>,
