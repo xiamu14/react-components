@@ -1,8 +1,8 @@
 import React from "react";
-import Modal, { useModal } from "chili-modal";
+import Modal, { useModal } from "../package/chili-modal/dist";
 
 export default {
-  title: "测试吗"
+  title: "弹层"
 };
 
 export const text = () => {
