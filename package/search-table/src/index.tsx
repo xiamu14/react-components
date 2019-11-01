@@ -4,7 +4,7 @@
 
 import React, { useState } from "react";
 import { Table } from "antd";
-import SearchBar from "@redchili/search-bar";
+import SearchBar from "../../search-bar/src/index";
 
 import './index.scss';
 

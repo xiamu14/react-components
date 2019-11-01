@@ -12,7 +12,7 @@ const schema = {
   type: "object",
   properties: {
     name: {
-      type: "radio",
+      type: "string",
       enum: ["1", "2", "3", "4"],
       title: "name"
     }

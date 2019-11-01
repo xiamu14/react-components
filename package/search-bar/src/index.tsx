@@ -40,6 +40,13 @@ export default class SearchBar extends PureComponent<Props, State> {
   }
 
   onSubmit = (v: any) => {
+    // NOTE:剔除无效值
+    Object.keys(v).map(key => {
+      // NOTE:非 true 值都是无效值
+      if (!v[key]) {
+        delete v[key];
+      }
+    });
     // NOTE: 应该判断当 v 是空对象时不触发
     if (Object.keys(v).length > 0) {
       /* eslint-disable-next-line */

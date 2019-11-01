@@ -78,6 +78,13 @@ var SearchBar = /** @class */ (function (_super) {
             hasReset: false // NOTE: 用于从 /order/list?uid=xxx 跳转到 /order/list 重新搜索框的标识
         };
         _this.onSubmit = function (v) {
+            // NOTE:剔除无效值
+            Object.keys(v).map(function (key) {
+                // NOTE:非 true 值都是无效值
+                if (!v[key]) {
+                    delete v[key];
+                }
+            });
             // NOTE: 应该判断当 v 是空对象时不触发
             if (Object.keys(v).length > 0) {
                 /* eslint-disable-next-line */
