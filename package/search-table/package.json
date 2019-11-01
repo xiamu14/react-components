@@ -1,6 +1,6 @@
 {
-  "name": "search-table",
-  "version": "1.0.0",
+  "name": "@redchili/search-table",
+  "version": "1.0.0-alpha.0",
   "description": "搜索表格(基于 antd, search-bar)",
   "author": "xiamu14",
   "license": "MIT",
