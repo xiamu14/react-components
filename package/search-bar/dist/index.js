@@ -65,7 +65,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css = ".search_bar--box {\n  margin: 0 10px 20px 24px;\n  padding: 20px 10px 0; }\n  .search_bar--box .border {\n    border: 1px solid #eee; }\n  .search_bar--box .btn_search_groups {\n    display: flex;\n    justify-content: flex-start; }\n  .search_bar--box .w20 {\n    width: 10px; }\n";
+var css = ".search_bar--box {\n  margin: 0 10px 20px 24px;\n  padding: 0 10px; }\n  .search_bar--box .border {\n    border: 1px solid #eee; }\n  .search_bar--box .btn_search_groups {\n    display: flex;\n    justify-content: flex-start; }\n  .search_bar--box .w20 {\n    width: 10px; }\n";
 styleInject(css);
 
 var actions = antd.createFormActions();

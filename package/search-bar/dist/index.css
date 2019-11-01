@@ -1,6 +1,6 @@
 .search_bar--box {
   margin: 0 10px 20px 24px;
-  padding: 20px 10px 0; }
+  padding: 0 10px; }
   .search_bar--box .border {
     border: 1px solid #eee; }
   .search_bar--box .btn_search_groups {
