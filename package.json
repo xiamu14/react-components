@@ -17,7 +17,7 @@
     "npm": ">=5"
   },
   "workspaces": [
-    "package/*"
+    "packages/*"
   ],
   "scripts": {
     "storybook": "start-storybook -p 6006",
