@@ -1,6 +1,6 @@
 {
   "name": "@redchili/search-table",
-  "version": "1.0.1-beta.0",
+  "version": "1.0.2-beta.0",
   "description": "搜索表格(基于 antd, search-bar)",
   "author": "xiamu14",
   "license": "MIT",
@@ -20,7 +20,7 @@
     "start": "rollup -c -w"
   },
   "dependencies": {
-    "@redchili/search-bar": "^1.0.1-beta.0",
+    "@redchili/search-bar": "^1.0.2-beta.0",
     "@uform/antd": "^0.4.3",
     "antd": "^3.24.3"
   },
