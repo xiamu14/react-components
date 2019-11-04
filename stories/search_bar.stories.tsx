@@ -1,6 +1,6 @@
 import React from "react";
 
-import SearchBar from "../packages/search-bar/src";
+import SearchBar from "../packages/search-bar/dist";
 
 import "antd/dist/antd.css";
 

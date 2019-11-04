@@ -748,10 +748,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.7.4.tgz#a87b4b04e5ae14a88d48ebef15015f6b7d1f5677"
   integrity sha512-kBa+cDHOR9jpRJ+kcGMsysrls0leukrm68DmFQoMIWQcXdr2cZvyvypWuGYT7U+9kAExUE7+T7r6G3C3A6L8MQ==
 
-"@redchili/search-bar@1.0.0-beta.1":
-  version "1.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/@redchili/search-bar/-/search-bar-1.0.0-beta.1.tgz#a53ceaa7b0ebfab06435b605fa23fd23a11b5843"
-  integrity sha512-3D/NqRDIIPosC4RKImf5J0M4JfC/ZGOCiNna+wBzf7URBF3BWXjlAugKq3+SyFH0sDOIK7BIQe3w9AD3+RBHMQ==
+"@redchili/search-bar@1.0.0-beta.2":
+  version "1.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@redchili/search-bar/-/search-bar-1.0.0-beta.2.tgz#1b5e4fa9e2562d1cc51a1528ce924bfb9c9d7f06"
+  integrity sha512-2PUo+HDAOM1c2HTAnczxqzUR9WK60guX94uQyu1/lbH7r4Dj65sz5XO2V9Rq2YTBQWZzhRbjjRQ6F6E+KnobDg==
   dependencies:
     "@uform/antd" "^0.4.3"
     antd "^3.24.3"
