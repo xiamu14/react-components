@@ -1,5 +1,5 @@
 import React from "react";
-import Modal, { useModal } from "../package/chili-modal/dist";
+import Modal, { useModal } from "../packages/chili-modal/dist";
 
 export default {
   title: "弹层"

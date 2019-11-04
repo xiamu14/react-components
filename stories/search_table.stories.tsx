@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SearchTable from "../package/search-table/dist";
+import SearchTable from "../packages/search-table/dist";
 
 import "antd/dist/antd.css";
 
