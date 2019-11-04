@@ -12,27 +12,30 @@ import loadable from "react-loadable";
 import { Switch, Route } from "react-router-dom";
 import Loading from "./loading";
 
-function getComponentAsync(component: string) {
-  return loadable({
-    loader: () => import(/* webpackChunkName: "[request]" */ `../${component}`),
-    loading: Loading,
-    timeout: 10000
-  });
-}
-
-export interface route {
-  name: string,
-  exact: boolean,
-  path: string,
-  component: string
+interface route {
+  name: string;
+  exact: boolean;
+  path: string;
+  component: string;
 }
 
 interface Props {
   router: route[];
+  path: string /** @desc component 相对路径 */;
 }
 
 export default function AppRouter(props: Props) {
-  const { router } = props;
+  const { router, path } = props;
+
+  const getComponentAsync = (component: string) => {
+    return loadable({
+      loader: () =>
+        import(/* webpackChunkName: "[request]" */ `${path}/${component}`),
+      loading: Loading,
+      timeout: 10000
+    });
+  };
+
   return (
     <Switch>
       {router.map((route, index) => (
