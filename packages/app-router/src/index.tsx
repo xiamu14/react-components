@@ -31,7 +31,6 @@ interface Props {
   router: route[];
 }
 
-/* eslint-disable-next-line */
 export default function AppRouter(props: Props) {
   const { router } = props;
   return (
