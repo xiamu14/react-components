@@ -1,6 +1,6 @@
 {
   "name": "@redchili/limit-upload",
-  "version": "1.0.0",
+  "version": "1.0.1-alpha.0",
   "description": "实现条件约束的上传组件",
   "author": "xiamu14",
   "license": "MIT",
@@ -18,11 +18,9 @@
   "scripts": {
     "build": "rollup -c"
   },
-  "dependencies": {},
   "peerDependencies": {
-    "react": "^15.0.0 || ^16.0.0",
-    "antd": "^3.24.3"
-
+    "antd": "^3.24.3",
+    "react": "^15.0.0 || ^16.0.0"
   },
   "devDependencies": {
     "@svgr/rollup": "^2.4.1",
