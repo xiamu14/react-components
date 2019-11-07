@@ -1,5 +1,5 @@
 {
-  "name": "limit-upload",
+  "name": "@redchili/limit-upload",
   "version": "1.0.0",
   "description": "实现条件约束的上传组件",
   "author": "xiamu14",
@@ -8,6 +8,9 @@
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "engines": {
     "node": ">=8",
     "npm": ">=5"
