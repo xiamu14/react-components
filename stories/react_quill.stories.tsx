@@ -1,5 +1,5 @@
 import React from "react";
-import ReactQuill from "../packages/react-quill/src";
+import ReactQuill from "../packages/react-quill/dist";
 import "quill/dist/quill.snow.css";
 import "../packages/react-quill/dist/local.css";
 export default {
