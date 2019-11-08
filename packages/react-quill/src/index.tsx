@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import Quill, { QuillOptionsStatic } from "quill";
 import _throttle from "lodash.throttle";
+import "./index.css";
 
 export interface ResFiles {
   url: string;
@@ -55,12 +56,12 @@ export default function ReactQuill(props: Props) {
     });
   }, []);
 
-  const {width, height} = props;
+  const { width, height } = props;
 
   const style = {
-    width: width || 'auto',
-    height: height || '200px'
-  }
+    width: width || "auto",
+    height: height || "200px"
+  };
 
   return (
     <div className="quill" style={style}>

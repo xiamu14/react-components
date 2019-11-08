@@ -1,0 +1,38 @@
+.quill {
+  display: flex;
+  flex-direction: column;
+}
+
+.ql-container {
+  flex: 1;
+  overflow-y: hidden;
+}
+
+.ql-editor::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+.ql-editor::-webkit-scrollbar-thumb {
+  background-color: #e8e8e8;
+}
+
+.ql-snow .ql-editor img {
+  display: block;
+  max-width: 50%;
+  margin: 4px auto;
+}
+
+.ql-snow input,
+.ql-snow [role="button"],
+.ql-snow.ql-toolbar button {
+  outline: none;
+}
+
+.ql-toolbar.ql-snow .ql-picker-label {
+  display: flex;
+  outline: none;
+}
+
+.ql-snow .ql-icon-picker .ql-picker-label svg {
+  width: 100%;
+}
