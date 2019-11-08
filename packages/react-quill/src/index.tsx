@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import Quill, { QuillOptionsStatic } from "quill";
 import _throttle from "lodash.throttle";
+
 export interface ResFiles {
   url: string;
   width?: string;
@@ -9,7 +10,9 @@ export interface ResFiles {
 
 interface Props {
   value?: string;
-  config?: QuillOptionsStatic;
+  options?: QuillOptionsStatic;
+  width?: string;
+  height?: string;
   imgCusRequest?: (files: FileList[]) => Promise<ResFiles>;
   onChange?: (html: string) => void;
 }
@@ -19,7 +22,7 @@ export default function ReactQuill(props: Props) {
   const inputEl = useRef<any>(null);
 
   useEffect(() => {
-    const editor = new Quill(quillBoxEl.current, props.config);
+    const editor = new Quill(quillBoxEl.current, props.options);
 
     // NOTE: init quill
     const { value } = props;
@@ -40,12 +43,8 @@ export default function ReactQuill(props: Props) {
 
     toolbar.addHandler("image", () => {
       inputEl.current.click();
-      // editor.insertEmbed(
-      //   10,
-      //   "image",
-      //   "https://images.unsplash.com/photo-1517331156700-3c241d2b4d83?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1348&q=80"
-      // );
     });
+
     inputEl.current.addEventListener("change", async () => {
       // console.log("查看图片", inputEl.current.files);
       const files = inputEl.current.files;
@@ -56,8 +55,15 @@ export default function ReactQuill(props: Props) {
     });
   }, []);
 
+  const {width, height} = props;
+
+  const style = {
+    width: width || 'auto',
+    height: height || '200px'
+  }
+
   return (
-    <div className="quill">
+    <div className="quill" style={style}>
       <div ref={quillBoxEl} className="quill_box" />
       <input
         ref={inputEl}

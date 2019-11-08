@@ -1,7 +1,7 @@
 import React from "react";
-import ReactQuill from "../packages/react-quill/dist";
+import ReactQuill from "../packages/react-quill/src";
 import "quill/dist/quill.snow.css";
-import "../packages/react-quill/src/local.css";
+import "../packages/react-quill/dist/local.css";
 export default {
   title: "react quill"
 };
@@ -29,7 +29,12 @@ const value = "<p>查看一下啊</p>";
 export const withReactQuill = () => {
   return (
     <div style={{ padding: "10px" }}>
-      <ReactQuill config={options} value={value} onChange={(html) => console.log(html)}/>
+      <ReactQuill
+        options={options}
+        value={value}
+        onChange={html => console.log(html)}
+        height="200px"
+      />
     </div>
   );
 };
