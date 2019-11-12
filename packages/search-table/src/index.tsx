@@ -50,7 +50,10 @@ export default function SearchTable(props: Props) {
 
   useEffect(() => {
     if (restScrollRef.current && searchRef.current) {
-      const height = restScrollRef.current.clientHeight - searchRef.current;
+      const height =
+        restScrollRef.current.clientHeight -
+        searchRef.current.clientHeight -
+        20;
       setTableScrollHeight(height);
     }
   }, [restScrollRef]);
@@ -64,12 +67,13 @@ export default function SearchTable(props: Props) {
 
   return (
     <div className="search_table--box" ref={restScrollRef}>
-      <SearchBar
-        schema={schema}
-        onCaptureForm={onCaptureForm}
-        onSearchReset={onSearchReset}
-        ref={searchRef}
-      />
+      <div ref={searchRef}>
+        <SearchBar
+          schema={schema}
+          onCaptureForm={onCaptureForm}
+          onSearchReset={onSearchReset}
+        />
+      </div>
       <div className="h20" />
       <Table
         {...tableProps}
