@@ -53,7 +53,7 @@ export default function SearchTable(props: Props) {
       const height =
         restScrollRef.current.clientHeight -
         searchRef.current.clientHeight -
-        20;
+        60; // NOTE:减去底部分页
       setTableScrollHeight(height);
     }
   }, [restScrollRef]);
