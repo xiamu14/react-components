@@ -15773,6 +15773,11 @@ react-app-polyfill@^1.0.4:
     regenerator-runtime "0.13.3"
     whatwg-fetch "3.0.0"
 
+react-available-hooks@^1.0.1-beta.0:
+  version "1.0.1-beta.0"
+  resolved "https://registry.yarnpkg.com/react-available-hooks/-/react-available-hooks-1.0.1-beta.0.tgz#9c2e081b7d717e10d23e238fb2fc657d956d9381"
+  integrity sha512-7dXU4Ow9ieeaxMqyTDaUC2Zvx7wFCsS+tMJuRWPCIX6mmL6uuOjeSGj+LYaFXYzdykHHSQ41Pdl/B3AaihKNeg==
+
 react-clientside-effect@^1.2.0:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/react-clientside-effect/-/react-clientside-effect-1.2.2.tgz#6212fb0e07b204e714581dd51992603d1accc837"
