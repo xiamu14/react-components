@@ -2,11 +2,11 @@
  * @desc 带搜索功能的表格
  */
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Table } from "antd";
 import SearchBar from "@redchili/search-bar";
 
-import './index.scss';
+import "./index.scss";
 
 interface Props {
   schema: Record<string, any>;
@@ -42,6 +42,19 @@ export default function SearchTable(props: Props) {
     onChange(page, searchKey);
   };
 
+  const restScrollRef = useRef<any>(null);
+  const searchRef = useRef<any>(null);
+
+  /** @desc 表格固定高度 */
+  const [tableScrollHeight, setTableScrollHeight] = useState(0);
+
+  useEffect(() => {
+    if (restScrollRef.current && searchRef.current) {
+      const height = restScrollRef.current.clientHeight - searchRef.current;
+      setTableScrollHeight(height);
+    }
+  }, [restScrollRef]);
+
   const { schema, columns, dataSource, pagination, tableProps } = props;
 
   const presetPagination = {
@@ -50,17 +63,19 @@ export default function SearchTable(props: Props) {
   };
 
   return (
-    <div className="search_table--box">
+    <div className="search_table--box" ref={restScrollRef}>
       <SearchBar
         schema={schema}
         onCaptureForm={onCaptureForm}
         onSearchReset={onSearchReset}
+        ref={searchRef}
       />
       <div className="h20" />
       <Table
         {...tableProps}
         columns={columns}
         dataSource={dataSource}
+        scroll={{ y: tableScrollHeight }}
         pagination={
           pagination ? { ...pagination, ...presetPagination } : presetPagination
         }
