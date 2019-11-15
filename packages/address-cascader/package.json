@@ -25,8 +25,7 @@
     "deploy": "gh-pages -d example/build"
   },
   "dependencies": {
-    "antd": "^3.24.3",
-    "china-division": "^2.2.0"
+    "antd": "^3.24.3"
   },
   "peerDependencies": {
     "antd": "^3.24.3",
