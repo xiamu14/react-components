@@ -33,6 +33,9 @@ export default [
       typescript({
         rollupCommonJSResolveHack: true,
         clean: true,
+        tsconfigOverride: {
+          compilerOptions: { declaration: false }
+        }
       }),
       commonjs()
     ]
@@ -63,7 +66,7 @@ export default [
       resolve(),
       typescript({
         rollupCommonJSResolveHack: true,
-        clean: true,
+        clean: true
       }),
       commonjs()
     ]
