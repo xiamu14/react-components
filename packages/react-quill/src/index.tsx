@@ -56,12 +56,6 @@ export default function ReactQuill(props: Props) {
     });
 
     toolbar.addHandler("video", () => {
-      // console.log(
-      //   "%c检查是否触发",
-      //   "background: #69c0ff; color: white; padding: 4px",
-      //   "video"
-      // );
-
       setMedioType("video");
       inputEl.current.click();
     });
@@ -71,7 +65,7 @@ export default function ReactQuill(props: Props) {
       const files = inputEl.current.files;
       if (files.length > 0 && props.medioRequest) {
         const resFile = await props.medioRequest(files, medioType);
-        if (medioType === "video") {
+        if (medioType === "image") {
           editor.insertEmbed(10, "image", resFile.url);
         } else {
           editor.insertEmbed(11, "cusVideo", {
