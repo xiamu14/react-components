@@ -1,5 +1,5 @@
 import React from "react";
-import ReactQuill from "../packages/react-quill/dist";
+import ReactQuill from "../packages/react-quill/src";
 import "quill/dist/quill.snow.css";
 import "../packages/react-quill/dist/local.css";
 export default {
@@ -11,7 +11,7 @@ const container = [
   ["bold", "italic", "underline", "strike"],
   [{ list: "ordered" }, { list: "bullet" }],
   [{ align: [] }],
-  ["link", "image"]
+  ["link", "image", "video"]
 ];
 
 const options = {

@@ -1,6 +1,7 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Quill, { QuillOptionsStatic } from "quill";
 import _throttle from "lodash.throttle";
+import VideoBlot from "./video_blot";
 import "./index.css";
 
 export interface ResFiles {
@@ -14,15 +15,22 @@ interface Props {
   options?: QuillOptionsStatic;
   width?: string;
   height?: string;
-  imgCusRequest?: (files: FileList[]) => Promise<ResFiles>;
+  imgCusRequest?: (
+    files: FileList[],
+    type: "image" | "video"
+  ) => Promise<ResFiles>;
   onChange?: (html: string) => void;
 }
 
 export default function ReactQuill(props: Props) {
   const quillBoxEl = useRef<any>(null);
   const inputEl = useRef<any>(null);
-
+  const [medioType, setMedioType] = useState<"image" | "video">("image");
   useEffect(() => {
+    VideoBlot.blotName = "cusVideo";
+    VideoBlot.tagName = "video";
+    Quill.register(VideoBlot);
+
     const editor = new Quill(quillBoxEl.current, props.options);
 
     // NOTE: init quill
@@ -43,6 +51,18 @@ export default function ReactQuill(props: Props) {
     const toolbar = editor.getModule("toolbar");
 
     toolbar.addHandler("image", () => {
+      setMedioType("image");
+      inputEl.current.click();
+    });
+
+    toolbar.addHandler("video", () => {
+      console.log(
+        "%c检查是否触发",
+        "background: #69c0ff; color: white; padding: 4px",
+        "video"
+      );
+
+      setMedioType("video");
       inputEl.current.click();
     });
 
@@ -50,8 +70,17 @@ export default function ReactQuill(props: Props) {
       // console.log("查看图片", inputEl.current.files);
       const files = inputEl.current.files;
       if (files.length > 0 && props.imgCusRequest) {
-        const resFile = await props.imgCusRequest(files);
-        editor.insertEmbed(10, "image", resFile.url);
+        const resFile = await props.imgCusRequest(files, medioType);
+        if (medioType === "video") {
+          editor.insertEmbed(10, "image", resFile.url);
+        } else {
+          editor.insertEmbed(11, "cusVideo", {
+            url: resFile.url,
+            controls: "controls",
+            width: "100%",
+            height: "100%"
+          });
+        }
       }
     });
   }, []);
@@ -69,7 +98,7 @@ export default function ReactQuill(props: Props) {
       <input
         ref={inputEl}
         type="file"
-        accept="image/*"
+        accept={medioType === "image" ? "image/*" : "video/*"}
         style={{ display: "none" }}
       />
     </div>
