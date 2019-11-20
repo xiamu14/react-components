@@ -15,7 +15,7 @@ interface Props {
   options?: QuillOptionsStatic;
   width?: string;
   height?: string;
-  imgCusRequest?: (
+  medioRequest?: (
     files: FileList[],
     type: "image" | "video"
   ) => Promise<ResFiles>;
@@ -56,11 +56,11 @@ export default function ReactQuill(props: Props) {
     });
 
     toolbar.addHandler("video", () => {
-      console.log(
-        "%c检查是否触发",
-        "background: #69c0ff; color: white; padding: 4px",
-        "video"
-      );
+      // console.log(
+      //   "%c检查是否触发",
+      //   "background: #69c0ff; color: white; padding: 4px",
+      //   "video"
+      // );
 
       setMedioType("video");
       inputEl.current.click();
@@ -69,8 +69,8 @@ export default function ReactQuill(props: Props) {
     inputEl.current.addEventListener("change", async () => {
       // console.log("查看图片", inputEl.current.files);
       const files = inputEl.current.files;
-      if (files.length > 0 && props.imgCusRequest) {
-        const resFile = await props.imgCusRequest(files, medioType);
+      if (files.length > 0 && props.medioRequest) {
+        const resFile = await props.medioRequest(files, medioType);
         if (medioType === "video") {
           editor.insertEmbed(10, "image", resFile.url);
         } else {

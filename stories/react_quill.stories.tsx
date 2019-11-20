@@ -1,5 +1,5 @@
 import React from "react";
-import ReactQuill from "../packages/react-quill/src";
+import ReactQuill, { ResFiles } from "../packages/react-quill/src";
 import "quill/dist/quill.snow.css";
 import "../packages/react-quill/dist/local.css";
 export default {
@@ -27,6 +27,12 @@ const options = {
 const value = "<p>查看一下啊</p>";
 
 export const withReactQuill = () => {
+
+  const cusRequest = async (res: any, type: 'image' | 'video'): Promise<ResFiles> => {
+    console.log('%c检查下啊', 'background: #69c0ff; color: white; padding: 4px', res);
+    return null
+  }
+
   return (
     <div style={{ padding: "10px" }}>
       <ReactQuill
@@ -34,6 +40,7 @@ export const withReactQuill = () => {
         value={value}
         onChange={html => console.log(html)}
         height="200px"
+        medioRequest={cusRequest}
       />
     </div>
   );
