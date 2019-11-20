@@ -63,7 +63,6 @@ export default function ReactQuill(props: Props) {
     });
 
     inputEl.current.addEventListener("change", async () => {
-      // console.log("查看图片", inputEl.current.files);
       const files = inputEl.current.files;
       const medioTypeCopy = inputEl.current.getAttribute("name");
       const addImageRange = editor.getSelection()
