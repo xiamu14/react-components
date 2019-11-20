@@ -16,10 +16,12 @@
   background-color: #e8e8e8;
 }
 
-.ql-snow .ql-editor img {
+.ql-snow .ql-editor img, .ql-snow .ql-editor video {
   display: block;
   max-width: 50%;
   margin: 4px auto;
+  margin-bottom: 8px;
+  border: solid 0.5px #e8e8e8;
 }
 
 .ql-snow input,

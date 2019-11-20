@@ -15,6 +15,7 @@ interface Props {
   options?: QuillOptionsStatic;
   width?: string;
   height?: string;
+  minHeight?: string;
   medioRequest?: (
     files: FileList[],
     type: "image" | "video"
@@ -26,6 +27,7 @@ export default function ReactQuill(props: Props) {
   const quillBoxEl = useRef<any>(null);
   const inputEl = useRef<any>(null);
   const [medioType, setMedioType] = useState<"image" | "video">("image");
+
   useEffect(() => {
     VideoBlot.blotName = "cusVideo";
     VideoBlot.tagName = "video";
@@ -63,12 +65,15 @@ export default function ReactQuill(props: Props) {
     inputEl.current.addEventListener("change", async () => {
       // console.log("查看图片", inputEl.current.files);
       const files = inputEl.current.files;
+      const medioTypeCopy = inputEl.current.getAttribute("name");
+      const addImageRange = editor.getSelection()
+      const newRange = 0 + (addImageRange !== null ? addImageRange.index : 0);
       if (files.length > 0 && props.medioRequest) {
-        const resFile = await props.medioRequest(files, medioType);
-        if (medioType === "image") {
-          editor.insertEmbed(10, "image", resFile.url);
+        const resFile = await props.medioRequest(files, medioTypeCopy);
+        if (medioTypeCopy === "image") {
+          editor.insertEmbed(newRange, "image", resFile.url);
         } else {
-          editor.insertEmbed(11, "cusVideo", {
+          editor.insertEmbed(newRange, "cusVideo", {
             url: resFile.url,
             controls: "controls",
             width: "100%",
@@ -76,14 +81,16 @@ export default function ReactQuill(props: Props) {
           });
         }
       }
+      editor.setSelection(1 + newRange, 1);
     });
   }, []);
 
-  const { width, height } = props;
+  const { width, height, minHeight } = props;
 
   const style = {
     width: width || "auto",
-    height: height || "200px"
+    height: height || "",
+    minHeight: minHeight || "200px"
   };
 
   return (
@@ -92,6 +99,7 @@ export default function ReactQuill(props: Props) {
       <input
         ref={inputEl}
         type="file"
+        name={medioType}
         accept={medioType === "image" ? "image/*" : "video/*"}
         style={{ display: "none" }}
       />
