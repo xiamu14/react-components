@@ -28,61 +28,64 @@ export default function ReactQuill(props: Props) {
   const inputEl = useRef<any>(null);
   const [medioType, setMedioType] = useState<"image" | "video">("image");
   const [editor, setEditor] = useState();
+  const [initial, setInitial] = useState(false);
   useEffect(() => {
     if (!editor) {
       setEditor(new Quill(quillBoxEl.current, props.options));
     } else {
-      if (props.value) {
-        const delta = editor.clipboard.convert(props.value);
-        editor.setContents(delta);
-      } else {
-        VideoBlot.blotName = "cusVideo";
-        VideoBlot.tagName = "video";
-        Quill.register(VideoBlot);
-        editor.on(
-          "text-change",
-          _throttle(() => {
-            const el = document.querySelector(".ql-editor");
-            props.onChange && props.onChange(el ? el.innerHTML : "");
-          }, 1000)
-        );
 
-        const toolbar = editor.getModule("toolbar");
+      VideoBlot.blotName = "cusVideo";
+      VideoBlot.tagName = "video";
+      Quill.register(VideoBlot);
+      editor.on(
+        "text-change",
+        _throttle(() => {
+          const el = document.querySelector(".ql-editor");
+          props.onChange && props.onChange(el ? el.innerHTML : "");
+        }, 1000)
+      );
 
-        toolbar.addHandler("image", () => {
-          setMedioType("image");
-          inputEl.current.click();
-        });
+      const toolbar = editor.getModule("toolbar");
 
-        toolbar.addHandler("video", () => {
-          setMedioType("video");
-          inputEl.current.click();
-        });
+      toolbar.addHandler("image", () => {
+        setMedioType("image");
+        inputEl.current.click();
+      });
 
-        inputEl.current.addEventListener("change", async () => {
-          const files = inputEl.current.files;
-          const medioTypeCopy = inputEl.current.getAttribute("name");
-          const addImageRange = editor.getSelection();
-          const newRange =
-            0 + (addImageRange !== null ? addImageRange.index : 0);
-          if (files.length > 0 && props.medioRequest) {
-            const resFile = await props.medioRequest(files, medioTypeCopy);
-            if (medioTypeCopy === "image") {
-              editor.insertEmbed(newRange, "image", resFile.url);
-            } else {
-              editor.insertEmbed(newRange, "cusVideo", {
-                url: resFile.url,
-                controls: "controls",
-                width: "100%",
-                height: "100%"
-              });
-            }
+      toolbar.addHandler("video", () => {
+        setMedioType("video");
+        inputEl.current.click();
+      });
+
+      inputEl.current.addEventListener("change", async () => {
+        const files = inputEl.current.files;
+        const medioTypeCopy = inputEl.current.getAttribute("name");
+        const addImageRange = editor.getSelection();
+        const newRange = 0 + (addImageRange !== null ? addImageRange.index : 0);
+        if (files.length > 0 && props.medioRequest) {
+          const resFile = await props.medioRequest(files, medioTypeCopy);
+          if (medioTypeCopy === "image") {
+            editor.insertEmbed(newRange, "image", resFile.url);
+          } else {
+            editor.insertEmbed(newRange, "cusVideo", {
+              url: resFile.url,
+              controls: "controls",
+              width: "100%",
+              height: "100%"
+            });
           }
-          editor.setSelection(1 + newRange, 1);
-        });
-      }
+        }
+        editor.setSelection(1 + newRange, 1);
+      });
     }
-  }, [props, editor]);
+  }, [editor]);
+
+  // FIXME:限制初始化只执行一次，props 会多次传入
+  if (props.value && !initial) {
+    const delta = editor.clipboard.convert(props.value);
+    editor.setContents(delta);
+    setInitial(true);
+  }
 
   const { width, height, minHeight } = props;
 

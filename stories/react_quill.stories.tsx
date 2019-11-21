@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from "react";
 import ReactQuill, { ResFiles } from "../packages/react-quill/src";
+import {
+  SchemaForm,
+  Submit,
+  createFormActions,
+  FormButtonGroup,
+  registerFormField,
+  connect
+} from "@uform/antd";
 import "quill/dist/quill.snow.css";
 import "../packages/react-quill/dist/local.css";
 export default {
   title: "react quill"
 };
+
+// @ts-ignore
+registerFormField("react-quill", connect()(ReactQuill));
+
+const actions = createFormActions();
 
 const container = [
   [{ header: [1, 2, 3, false] }],
@@ -43,22 +56,56 @@ export const withReactQuill = () => {
     };
   };
 
+  const schema = {
+    type: "object",
+    properties: {
+      title: {
+        type: "string",
+        title: "资讯标题",
+        required: true
+      },
+      content: {
+        type: "string",
+        title: "资讯内容",
+        "x-component": "react-quill",
+        "x-props": {
+          options,
+          cusRequest,
+          height: "300px"
+        },
+        required: true
+      },
+      status: {
+        type: "radio",
+        title: "是否开启",
+        enum: ["开启", "关闭"],
+        required: true
+      }
+    }
+  };
+
   const [value, setValue] = useState();
 
   useEffect(() => {
-    setValue('<p>这样子吗？<img src="//static-beta.5facepay.com/information/2019_11_21/20191121160931f7a7ff28d37889202ec4d7e3020d9198.png"></p><p>还好吧。应该</p><video src="//static-beta.5facepay.com/information/2019_11_21/2019112116094737eae21c9cd4e4a1a578ae95a4efa48f.mp4" controls="controls" width="100%" height="100%" webkit-playsinline="true" playsinline="true" x5-playsinline="true"></video><p><br></p>')
+    setValue({
+      content:
+        '<p>这样子吗？<img src="//static-beta.5facepay.com/information/2019_11_21/20191121160931f7a7ff28d37889202ec4d7e3020d9198.png"></p><p>还好吧。应该</p><video src="//static-beta.5facepay.com/information/2019_11_21/2019112116094737eae21c9cd4e4a1a578ae95a4efa48f.mp4" controls="controls" width="100%" height="100%" webkit-playsinline="true" playsinline="true" x5-playsinline="true"></video><p><br></p>'
+    });
   }, []);
 
   return (
     <div style={{ padding: "10px" }}>
-      <ReactQuill
-        options={options}
-        value={value}
-        onChange={html => console.log(html)}
-        height="auto"
-        minHeight="200px"
-        medioRequest={cusRequest}
-      />
+      <SchemaForm
+        actions={actions}
+        schema={schema}
+        initialValues={value}
+        labelCol={4}
+        wrapperCol={18}
+      >
+        <FormButtonGroup offset={4}>
+          <Submit />
+        </FormButtonGroup>
+      </SchemaForm>
     </div>
   );
 };
