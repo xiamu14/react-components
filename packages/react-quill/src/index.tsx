@@ -30,60 +30,73 @@ export default function ReactQuill(props: Props) {
   const [editor, setEditor] = useState();
   const [initial, setInitial] = useState(false);
   const { value } = props;
+
+  // init quill
   useEffect(() => {
     if (!editor) {
       setEditor(new Quill(quillBoxEl.current, props.options));
     } else {
-      if (value && !initial) {
-        const delta = editor.clipboard.convert(value);
-        editor.setContents(delta);
-        setInitial(true);
-      } else if (!value && initial) {
-        VideoBlot.blotName = "cusVideo";
-        VideoBlot.tagName = "video";
-        Quill.register(VideoBlot);
-        editor.on(
-          "text-change",
-          _throttle(() => {
-            const el = document.querySelector(".ql-editor");
-            props.onChange && props.onChange(el ? el.innerHTML : "");
-          }, 1000)
-        );
+      // 监听文本输入内容，并通过 props.onChange 返回
+      const el = document.querySelector(".ql-editor");
+      editor.on(
+        "text-change",
+        _throttle(() => {
+          props.onChange &&
+            props.onChange(
+              el ? (el.innerHTML !== "<p><br></p>" ? el.innerHTML : "") : ""
+            ); // 还要剔除 空内容 '<p><br></p>'
+        }, 1000)
+      );
+      // 注册自定义的 videoBlot(返回 video 标签内容)
+      VideoBlot.blotName = "cusVideo";
+      VideoBlot.tagName = "video";
+      Quill.register(VideoBlot);
 
-        const toolbar = editor.getModule("toolbar");
+      // 监听 toolbar 的 image、video 按钮，并实现外部自定义上传文件并显示
 
-        toolbar.addHandler("image", () => {
-          setMedioType("image");
-          inputEl.current.click();
-        });
+      const toolbar = editor.getModule("toolbar");
 
-        toolbar.addHandler("video", () => {
-          setMedioType("video");
-          inputEl.current.click();
-        });
+      toolbar.addHandler("image", () => {
+        setMedioType("image");
+        inputEl.current.click();
+      });
 
-        inputEl.current.addEventListener("change", async () => {
-          const files = inputEl.current.files;
-          const medioTypeCopy = inputEl.current.getAttribute("name");
-          const addImageRange = editor.getSelection();
-          const newRange =
-            0 + (addImageRange !== null ? addImageRange.index : 0);
-          if (files.length > 0 && props.medioRequest) {
-            const resFile = await props.medioRequest(files, medioTypeCopy);
-            if (medioTypeCopy === "image") {
-              editor.insertEmbed(newRange, "image", resFile.url);
-            } else {
-              editor.insertEmbed(newRange, "cusVideo", {
-                url: resFile.url,
-                controls: "controls",
-                width: "100%",
-                height: "100%"
-              });
-            }
+      toolbar.addHandler("video", () => {
+        setMedioType("video");
+        inputEl.current.click();
+      });
+
+      inputEl.current.addEventListener("change", async () => {
+        const files = inputEl.current.files;
+        const medioTypeCopy = inputEl.current.getAttribute("name");
+        const addImageRange = editor.getSelection();
+        const newRange = 0 + (addImageRange !== null ? addImageRange.index : 0);
+        if (files.length > 0 && props.medioRequest) {
+          const resFile = await props.medioRequest(files, medioTypeCopy);
+          if (medioTypeCopy === "image") {
+            editor.insertEmbed(newRange, "image", resFile.url);
+          } else {
+            editor.insertEmbed(newRange, "cusVideo", {
+              url: resFile.url,
+              controls: "controls",
+              width: "100%",
+              height: "100%"
+            });
           }
-          editor.setSelection(1 + newRange, 1);
-        });
-      }
+        }
+        editor.setSelection(1 + newRange, 1);
+      });
+    }
+  }, [editor]);
+
+  // initialValues
+  useEffect(() => {
+
+    if (editor && value && !initial) {
+      const delta = editor.clipboard.convert(value);
+      editor.setContents(delta);
+
+      setInitial(true);
     }
   }, [editor, value]);
 
