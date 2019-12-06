@@ -11,7 +11,7 @@ import "./index.scss";
 
 interface Props {
   schema?: Record<string, any>;
-  CusSearchBar?: (props: any) => JSX.Element;
+  CusSearchBar?: (props: any) => JSX.Element; // 自定义 searchBar 功能，符合 onCaptureForm， onSearchReset 两个 props 即可
   columns: Record<string, any>[];
   dataSource: Record<string, any>[];
   onChange: (page: number, searchKey: any) => void;
