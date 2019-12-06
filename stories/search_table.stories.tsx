@@ -127,7 +127,7 @@ export const WithSearchTable = () => {
   return (
     <div className="content--box">
       <SearchTable
-        schema={schema}
+        // schema={schema}
         columns={columns}
         dataSource={data}
         onChange={onChange}

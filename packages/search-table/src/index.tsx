@@ -5,12 +5,13 @@
 import React, { useState, useRef } from "react";
 import { Table } from "antd";
 import SearchBar from "@redchili/search-bar";
-import {useTableBodyHeight} from 'react-available-hooks';
+import { useTableBodyHeight } from "react-available-hooks";
 
 import "./index.scss";
 
 interface Props {
-  schema: Record<string, any>;
+  schema?: Record<string, any>;
+  CusSearchBar?: (props: any) => JSX.Element;
   columns: Record<string, any>[];
   dataSource: Record<string, any>[];
   onChange: (page: number, searchKey: any) => void;
@@ -48,9 +49,16 @@ export default function SearchTable(props: Props) {
 
   /** @desc 表格固定高度 */
 
-  const { tableBodyHeight } = useTableBodyHeight(parentRef)
+  const { tableBodyHeight } = useTableBodyHeight(parentRef);
 
-  const { schema, columns, dataSource, pagination, tableProps } = props;
+  const {
+    schema,
+    CusSearchBar,
+    columns,
+    dataSource,
+    pagination,
+    tableProps
+  } = props;
 
   const presetPagination = {
     current: curPage,
@@ -60,11 +68,21 @@ export default function SearchTable(props: Props) {
   return (
     <div className="search_table--box" ref={parentRef}>
       <div ref={searchRef}>
-        <SearchBar
-          schema={schema}
-          onCaptureForm={onCaptureForm}
-          onSearchReset={onSearchReset}
-        />
+        {schema ? (
+          <SearchBar
+            schema={schema}
+            onCaptureForm={onCaptureForm}
+            onSearchReset={onSearchReset}
+          />
+        ) : (
+          ""
+        )}
+        {CusSearchBar ? (
+          <CusSearchBar
+            onCaptureForm={onCaptureForm}
+            onSearchReset={onSearchReset}
+          />
+        ) : null}
       </div>
       <Table
         {...tableProps}
