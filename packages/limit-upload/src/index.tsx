@@ -18,6 +18,15 @@ interface Props {
   /** @description 图片限制数量  */
   limit?: number;
   size?: number; // 限制上传大小(单位M)
+  fileType?: (
+    | "image/jpg"
+    | "image/png"
+    | "image/jpeg"
+    | "image/svg"
+    | "image/gif"
+    | "image/bmp"
+    | "image/ico"
+  )[]; // 具体的图片格式，数据 jpeg,png,jpg
   tips?: React.ReactNode;
   onChange: (fileList: any) => void;
   customRequest: (object: object) => void;
@@ -55,13 +64,21 @@ export default class LimitUpload extends React.Component<Props> {
   };
 
   beforeUpload = (file: Blob) => {
-    const { size } = this.props;
+    const { size, fileType } = this.props;
     const limitSize = size || LimitUpload.defaultSize;
     const isLimit = file.size / 1024 / 1024 < limitSize;
     if (!isLimit) {
       message.error(`图片大小不能超过 ${limitSize}MB!`);
     }
-    return isLimit;
+
+    let isType = true;
+    if (fileType) {
+      isType = fileType.indexOf(file.type as any) === -1 ? false : true;
+      if (!isType) {
+        message.error(`请上传 ${fileType.join(",")} 格式的图片!`);
+      }
+    }
+    return isLimit && isType;
   };
 
   // NOTE: 这里处理上报到上层
@@ -72,7 +89,14 @@ export default class LimitUpload extends React.Component<Props> {
 
   render() {
     const { previewVisible, previewImage } = this.state;
-    const { limit, customRequest, value, tips, ...others } = this.props;
+    const {
+      limit,
+      customRequest,
+      value,
+      tips,
+      fileType,
+      ...others
+    } = this.props;
     const uploadButton = (
       <div>
         <Icon type="plus" />
@@ -83,13 +107,15 @@ export default class LimitUpload extends React.Component<Props> {
 
     const fileArr = value;
 
+    const accept = fileType ? fileType.join(",") : "image/*"
+
     return (
       <div className="clearfix">
         <Upload
           {...others}
           listType="picture-card"
           fileList={fileArr}
-          accept="image/*"
+          accept={accept}
           onPreview={this.handlePreview}
           onChange={this.handleChange}
           customRequest={customRequest}
