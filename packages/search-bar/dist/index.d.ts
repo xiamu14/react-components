@@ -5,6 +5,7 @@ interface Props {
     schema: object;
     onCaptureForm: Function;
     onSearchReset?: Function;
+    initialValues?: any;
     inline?: boolean;
     labelCol?: number;
     wrapperCol?: number;

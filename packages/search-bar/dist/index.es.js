@@ -110,10 +110,10 @@ var SearchBar = /** @class */ (function (_super) {
         return null;
     };
     SearchBar.prototype.render = function () {
-        var _a = this.props, schema = _a.schema, inline = _a.inline, labelCol = _a.labelCol, wrapperCol = _a.wrapperCol, border = _a.border;
+        var _a = this.props, schema = _a.schema, inline = _a.inline, labelCol = _a.labelCol, wrapperCol = _a.wrapperCol, border = _a.border, initialValues = _a.initialValues;
         var isSeach = this.state.isSeach;
         return (React.createElement("div", { className: "search_bar--box " + (border ? "border" : "") },
-            React.createElement(SchemaForm, { inline: inline === undefined ? true : inline, onSubmit: this.onSubmit, actions: actions, labelCol: labelCol, wrapperCol: wrapperCol, schema: schema },
+            React.createElement(SchemaForm, { inline: inline === undefined ? true : inline, onSubmit: this.onSubmit, actions: actions, labelCol: labelCol, wrapperCol: wrapperCol, schema: schema, initialValues: initialValues },
                 React.createElement("div", { className: "btn_search_groups" },
                     React.createElement(Submit, null, "\u641C\u7D22"),
                     React.createElement("div", { className: "space w20" }),
