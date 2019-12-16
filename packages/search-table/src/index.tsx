@@ -41,7 +41,6 @@ export default function SearchTable(props: Props) {
 
   const onGoPage = (page: number) => {
     setCurPage(page);
-
     onChange(page, searchKey);
   };
 
