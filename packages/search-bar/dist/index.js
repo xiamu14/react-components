@@ -74,7 +74,7 @@ var SearchBar = /** @class */ (function (_super) {
     function SearchBar() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.state = {
-            isSeach: false,
+            isSearch: false,
             hasReset: false // NOTE: 用于从 /order/list?uid=xxx 跳转到 /order/list 重新搜索框的标识
         };
         _this.onSubmit = function (v) {
@@ -90,7 +90,7 @@ var SearchBar = /** @class */ (function (_super) {
                 /* eslint-disable-next-line */
                 _this.props.onCaptureForm(v);
                 _this.setState({
-                    isSeach: true
+                    isSearch: true
                 });
             }
         };
@@ -101,7 +101,7 @@ var SearchBar = /** @class */ (function (_super) {
             }
             actions.reset(true, false);
             _this.setState({
-                isSeach: false
+                isSearch: false
             });
         };
         return _this;
@@ -118,13 +118,13 @@ var SearchBar = /** @class */ (function (_super) {
     };
     SearchBar.prototype.render = function () {
         var _a = this.props, schema = _a.schema, inline = _a.inline, labelCol = _a.labelCol, wrapperCol = _a.wrapperCol, border = _a.border, initialValues = _a.initialValues;
-        var isSeach = this.state.isSeach;
+        var isSearch = this.state.isSearch;
         return (React__default.createElement("div", { className: "search_bar--box " + (border ? "border" : "") },
             React__default.createElement(antd.SchemaForm, { inline: inline === undefined ? true : inline, onSubmit: this.onSubmit, actions: actions, labelCol: labelCol, wrapperCol: wrapperCol, schema: schema, initialValues: initialValues },
                 React__default.createElement("div", { className: "btn_search_groups" },
                     React__default.createElement(antd.Submit, null, "\u641C\u7D22"),
                     React__default.createElement("div", { className: "space w20" }),
-                    isSeach ? (React__default.createElement(antd$1.Button, { type: "primary", onClick: this.onReset }, "\u5168\u90E8")) : ("")))));
+                    isSearch ? (React__default.createElement(antd$1.Button, { type: "primary", onClick: this.onReset }, "\u5168\u90E8")) : ("")))));
     };
     return SearchBar;
 }(React.PureComponent));

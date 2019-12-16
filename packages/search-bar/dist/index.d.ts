@@ -12,7 +12,7 @@ interface Props {
     border?: boolean;
 }
 interface State {
-    isSeach: boolean;
+    isSearch: boolean;
     hasReset?: boolean;
 }
 export default class SearchBar extends PureComponent<Props, State> {

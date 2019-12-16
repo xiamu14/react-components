@@ -17,7 +17,7 @@ interface Props {
   border?: boolean;
 }
 interface State {
-  isSeach: boolean;
+  isSearch: boolean;
   hasReset?: boolean;
 }
 
@@ -25,7 +25,7 @@ const actions = createFormActions();
 
 export default class SearchBar extends PureComponent<Props, State> {
   state: State = {
-    isSeach: false,
+    isSearch: false,
     hasReset: false // NOTE: 用于从 /order/list?uid=xxx 跳转到 /order/list 重新搜索框的标识
   };
 
@@ -53,7 +53,7 @@ export default class SearchBar extends PureComponent<Props, State> {
       /* eslint-disable-next-line */
       this.props.onCaptureForm(v);
       this.setState({
-        isSeach: true
+        isSearch: true
       });
     }
   };
@@ -65,13 +65,13 @@ export default class SearchBar extends PureComponent<Props, State> {
     }
     actions.reset(true, false);
     this.setState({
-      isSeach: false
+      isSearch: false
     });
   };
 
   render() {
     const { schema, inline, labelCol, wrapperCol, border, initialValues } = this.props;
-    const { isSeach } = this.state;
+    const { isSearch } = this.state;
     return (
       <div className={`search_bar--box ${border ? "border" : ""}`}>
         <SchemaForm
@@ -86,7 +86,7 @@ export default class SearchBar extends PureComponent<Props, State> {
           <div className="btn_search_groups">
             <Submit>搜索</Submit>
             <div className="space w20" />
-            {isSeach ? (
+            {isSearch ? (
               <Button type="primary" onClick={this.onReset}>
                 全部
               </Button>
