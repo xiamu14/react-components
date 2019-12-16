@@ -11,6 +11,7 @@ import "./index.scss";
 
 interface Props {
   schema?: Record<string, any>;
+  initialValues?: any;
   CusSearchBar?: (props: any) => JSX.Element; // 自定义 searchBar 功能，符合 onCaptureForm， onSearchReset 两个 props 即可
   columns: Record<string, any>[];
   dataSource: Record<string, any>[];
@@ -53,6 +54,7 @@ export default function SearchTable(props: Props) {
 
   const {
     schema,
+    initialValues,
     CusSearchBar,
     columns,
     dataSource,
@@ -71,6 +73,7 @@ export default function SearchTable(props: Props) {
         {schema ? (
           <SearchBar
             schema={schema}
+            initialValues={initialValues}
             onCaptureForm={onCaptureForm}
             onSearchReset={onSearchReset}
           />

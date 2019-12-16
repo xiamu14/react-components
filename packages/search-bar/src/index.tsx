@@ -10,6 +10,7 @@ interface Props {
   schema: object;
   onCaptureForm: Function;
   onSearchReset?: Function;
+  initialValues?: any;
   inline?: boolean;
   labelCol?: number;
   wrapperCol?: number;
@@ -69,7 +70,7 @@ export default class SearchBar extends PureComponent<Props, State> {
   };
 
   render() {
-    const { schema, inline, labelCol, wrapperCol, border } = this.props;
+    const { schema, inline, labelCol, wrapperCol, border, initialValues } = this.props;
     const { isSeach } = this.state;
     return (
       <div className={`search_bar--box ${border ? "border" : ""}`}>
@@ -80,6 +81,7 @@ export default class SearchBar extends PureComponent<Props, State> {
           labelCol={labelCol}
           wrapperCol={wrapperCol}
           schema={schema}
+          initialValues={initialValues}
         >
           <div className="btn_search_groups">
             <Submit>搜索</Submit>
