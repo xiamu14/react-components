@@ -8,6 +8,7 @@ import SearchBar from "@redchili/search-bar";
 import { useTableBodyHeight } from "react-available-hooks";
 
 import "./index.scss";
+import { useMemo } from "react";
 
 interface Props {
   schema?: Record<string, any>;
@@ -18,6 +19,8 @@ interface Props {
   onChange: (page: number, searchKey: any) => void;
   pagination?: Record<string, any>;
   tableProps?: Record<string, any>;
+  tableScrollX?: number;
+  tableScrollY?: number | false;
 }
 
 export default function SearchTable(props: Props) {
@@ -25,7 +28,7 @@ export default function SearchTable(props: Props) {
 
   const [searchKey, setSearchKey] = useState();
 
-  const { onChange } = props;
+  const { onChange, tableScrollX, tableScrollY } = props;
 
   const onCaptureForm = (v: any) => {
     setSearchKey(v);
@@ -66,6 +69,21 @@ export default function SearchTable(props: Props) {
     onChange: onGoPage
   };
 
+  const finalScroll = useMemo(() => {
+    let result: any = {};
+    if (tableScrollX) {
+      result.x = tableScrollX;
+    }
+    if (tableScrollY) {
+      result.y = tableScrollY;
+    } else if (tableScrollY === false) {
+      result.y = undefined;
+    } else {
+      result.y = tableBodyHeight;
+    }
+    return result;
+  }, [tableScrollX, tableScrollY, tableBodyHeight]);
+
   return (
     <div className="search_table--box" ref={parentRef}>
       <div ref={searchRef}>
@@ -90,7 +108,7 @@ export default function SearchTable(props: Props) {
         {...tableProps}
         columns={columns}
         dataSource={dataSource}
-        scroll={{ y: tableBodyHeight }}
+        scroll={finalScroll}
         pagination={
           pagination ? { ...pagination, ...presetPagination } : presetPagination
         }
