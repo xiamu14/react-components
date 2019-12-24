@@ -1,0 +1,61 @@
+.select_box {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid #d9d9d9;
+  width: 100%;
+  min-height: 32px;
+  border-radius: 4px;
+  padding: 4px 4px 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  z-index: 62;
+  position: relative; }
+
+.select_box_selection {
+  border-color: #40a9ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2); }
+
+.select_box-block {
+  padding: 4px 10px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  border: 1px solid #e8e8e8;
+  border-radius: 2px;
+  background-color: #fafafa; }
+
+.tree_select {
+  position: relative; }
+  .tree_select > .tree_dropdown {
+    position: absolute;
+    transform: translateY(3px);
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    animation-duration: 400ms;
+    z-index: 60; }
+  .tree_select > .tree_dropdown_init {
+    opacity: 0;
+    height: 0; }
+  .tree_select > .tree_dropdown_show {
+    animation-name: fadeIn;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards; }
+  .tree_select > .tree_dropdown_hide {
+    animation-name: fadeOut;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards; }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    visibility: visible;
+    opacity: 1; } }
+
+@keyframes fadeOut {
+  from {
+    opacity: 1; }
+  to {
+    visibility: hidden;
+    opacity: 0; } }
