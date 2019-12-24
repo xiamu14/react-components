@@ -1,5 +1,5 @@
 import React from "react";
-
+import {Icon} from "antd";
 import TreeSelect from "../packages/tree-select/src";
 
 import "antd/dist/antd.css";
@@ -11,53 +11,18 @@ export default {
 const treeData = [
   {
     title: "M0-手工",
-    pId: "2",
-    id: "21"
+    pid: "m2",
+    id: "m21"
   },
   {
-    title: "M1中-手工",
-    pId: "2",
-    id: "22"
+    title: "M1中-手工M1中-手工M1中-手工M1中-手工M1中-手工M1中-手工",
+    pid: "m21",
+    id: "m222"
   },
   {
-    title: "M1中-手工A组",
-    pId: "22",
-    id: "221"
-  },
-  {
-    title: "Root",
-    pId: "0",
-    id: "1"
-  },
-  {
-    title: "M2低-手工A组",
-    pId: "3",
-    id: "31"
-  },
-  {
-    title: "First",
-    pId: "1",
-    id: "2"
-  },
-  {
-    title: "M1中-手工B组",
-    pId: "22",
-    id: "222"
-  },
-  {
-    title: "M2低-手工B组",
-    pId: "3",
-    id: "32"
-  },
-  {
-    title: "M0-手工B组",
-    pId: "21",
-    id: "211"
-  },
-  {
-    title: "Second",
-    pId: "1",
-    id: "3"
+    title: "M1中-",
+    pid: "m222",
+    id: "a21"
   }
 ];
 
@@ -93,10 +58,10 @@ function arrayToTree(
 const menuIdsList = treeData.map(v => ({
   ...v,
   value: v.id,
-  key: v.id
-  //   parentId: v.pId
+  key: v.id,
+  parentId: v.pid
 }));
-const menuIdsTree = arrayToTree(menuIdsList, "id", "pId");
+const menuIdsTree = arrayToTree(menuIdsList, "id", "pid");
 
 export const TreeSelectNoProps = () => {
   const onChange = checkedList => {
@@ -106,7 +71,8 @@ export const TreeSelectNoProps = () => {
     <TreeSelect
       treeData={menuIdsTree}
       onChange={onChange}
-      initialValues={["1"]}
+      initialValues={["a21"]}
+      switcherIcon={<Icon type="down" />}
     />
   );
 };

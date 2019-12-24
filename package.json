@@ -21,8 +21,8 @@
   ],
   "scripts": {
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "build": "build-storybook -c .storybook -o build"
+    "build-storybook": "build-storybook -c .storybook -o build",
+    "deploy-storybook": "now"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -110,7 +110,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css = ".select_box {\n  display: flex;\n  flex-wrap: wrap;\n  border: 1px solid #d9d9d9;\n  width: 100%;\n  min-height: 32px;\n  border-radius: 4px;\n  padding: 4px 4px 0;\n  box-sizing: border-box;\n  cursor: pointer;\n  z-index: 62;\n  position: relative; }\n\n.select_box_selection {\n  border-color: #40a9ff;\n  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2); }\n\n.select_box-block {\n  padding: 4px 10px;\n  margin-right: 4px;\n  margin-bottom: 4px;\n  border: 1px solid #e8e8e8;\n  border-radius: 2px;\n  background-color: #fafafa; }\n\n.tree_select {\n  position: relative; }\n  .tree_select > .tree_dropdown {\n    position: absolute;\n    transform: translateY(3px);\n    width: 100%;\n    background-color: #ffffff;\n    border-radius: 4px;\n    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);\n    animation-duration: 400ms;\n    z-index: 60; }\n  .tree_select > .tree_dropdown_init {\n    opacity: 0;\n    height: 0; }\n  .tree_select > .tree_dropdown_show {\n    animation-name: fadeIn;\n    animation-timing-function: ease-in;\n    animation-fill-mode: forwards; }\n  .tree_select > .tree_dropdown_hide {\n    animation-name: fadeOut;\n    animation-timing-function: ease-out;\n    animation-fill-mode: forwards; }\n\n@keyframes fadeIn {\n  from {\n    opacity: 0; }\n  to {\n    visibility: visible;\n    opacity: 1; } }\n\n@keyframes fadeOut {\n  from {\n    opacity: 1; }\n  to {\n    visibility: hidden;\n    opacity: 0; } }\n";
+var css = ".select_box {\n  display: flex;\n  flex-wrap: wrap;\n  border: 1px solid #d9d9d9;\n  width: 100%;\n  min-height: 34px;\n  border-radius: 4px;\n  padding: 4px 4px 0;\n  box-sizing: border-box;\n  cursor: pointer;\n  z-index: 62;\n  position: relative; }\n\n.select_box_selection {\n  border-color: #40a9ff;\n  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2); }\n\n.select_box-block {\n  padding: 4px 10px;\n  margin-right: 4px;\n  margin-bottom: 4px;\n  border: 1px solid #e8e8e8;\n  border-radius: 2px;\n  background-color: #fafafa; }\n\n.tree_select {\n  position: relative; }\n  .tree_select > .tree_dropdown {\n    position: absolute;\n    transform: translateY(3px);\n    width: 100%;\n    background-color: #ffffff;\n    border-radius: 4px;\n    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);\n    animation-duration: 400ms;\n    z-index: 60; }\n  .tree_select > .tree_dropdown_init {\n    opacity: 0;\n    height: 0; }\n  .tree_select > .tree_dropdown_show {\n    animation-name: fadeIn;\n    animation-timing-function: ease-in;\n    animation-fill-mode: forwards; }\n  .tree_select > .tree_dropdown_hide {\n    animation-name: fadeOut;\n    animation-timing-function: ease-out;\n    animation-fill-mode: forwards; }\n  .tree_select .ant-tree li .ant-tree-node-content-wrapper {\n    width: 80%;\n    word-break: break-word;\n    white-space: pre-wrap;\n    height: auto; }\n\n@keyframes fadeIn {\n  from {\n    opacity: 0; }\n  to {\n    visibility: visible;\n    opacity: 1; } }\n\n@keyframes fadeOut {\n  from {\n    opacity: 1; }\n  to {\n    visibility: hidden;\n    opacity: 0; } }\n";
 styleInject(css);
 
 // 去重
@@ -139,13 +139,14 @@ function isContained(wrapArr, innerArr) {
 function getAllParentList(data, id) {
     var result = [];
     var deep = function (id, isRoot) {
+        // console.log("这里无限循环了");
         for (var i = 0, len = data.length; i < len; i++) {
             var v = data[i];
             if (v.id === id) {
                 if (!isRoot) {
                     result.push(v.id);
                 }
-                if (v.parentId && v.parentId !== "0") {
+                if (v.parentId) {
                     deep(v.parentId, false);
                 }
                 break;
@@ -282,6 +283,7 @@ var TreeSelect = /** @class */ (function (_super) {
     TreeSelect.prototype.render = function () {
         var _this = this;
         var _a = this.state, treeData = _a.treeData, menuIds = _a.menuIds, menuIdsListOrder = _a.menuIdsListOrder;
+        var switcherIcon = this.props.switcherIcon;
         var menuIdsHalfChecked = getHalfCheckedKeys(treeData, menuIds);
         var menuIdsChecked = filter(menuIds, menuIdsHalfChecked);
         var menuCheckedList = menuIdsListOrder.filter(function (v) { return menuIds.indexOf(v.id) > -1; });
@@ -295,7 +297,7 @@ var TreeSelect = /** @class */ (function (_super) {
                 React__default.createElement(antd.Tree, { checkedKeys: {
                         checked: menuIdsChecked,
                         halfChecked: menuIdsHalfChecked
-                    }, checkable: true, checkStrictly: true, defaultExpandedKeys: treeData.map(function (v) { return v.id; }), treeData: treeData, onCheck: function () {
+                    }, checkable: true, checkStrictly: true, switcherIcon: switcherIcon, defaultExpandedKeys: treeData.map(function (v) { return v.id; }), treeData: treeData, onCheck: function () {
                         var args = [];
                         for (var _i = 0; _i < arguments.length; _i++) {
                             args[_i] = arguments[_i];

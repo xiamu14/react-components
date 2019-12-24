@@ -26,13 +26,14 @@ function isContained(wrapArr: any[], innerArr: any[]) {
 function getAllParentList(data: any[], id: any) {
   const result: any[] = [];
   const deep = (id: any, isRoot: boolean) => {
+    // console.log("这里无限循环了");
     for (let i = 0, len = data.length; i < len; i++) {
       const v = data[i];
       if (v.id === id) {
         if (!isRoot) {
           result.push(v.id);
         }
-        if (v.parentId && v.parentId !== "0") {
+        if (v.parentId) {
           deep(v.parentId, false);
         }
         break;
@@ -99,8 +100,6 @@ function treeToArray(data: any[]): any[] {
   );
 }
 
-// const menuIds: any[] = [];
-
 interface State {
   treeData: any[];
   menuIdsListOrder: any[];
@@ -110,10 +109,11 @@ interface State {
 }
 
 interface Props {
-  treeData: any[];
+  treeData: { key: string; value: string; parentId: string; id: string }[];
   initialValues?: any[];
   value?: any[];
   onChange: (checkedList: any[]) => void;
+  switcherIcon?: React.ReactElement<any>;
 }
 
 export default class TreeSelect extends PureComponent<Props, State> {
@@ -198,7 +198,7 @@ export default class TreeSelect extends PureComponent<Props, State> {
 
   render() {
     const { treeData, menuIds, menuIdsListOrder } = this.state;
-
+    const { switcherIcon } = this.props;
     const menuIdsHalfChecked = getHalfCheckedKeys(treeData, menuIds as any[]);
     const menuIdsChecked = filter(menuIds as any[], menuIdsHalfChecked);
     const menuCheckedList = menuIdsListOrder.filter(
@@ -235,6 +235,7 @@ export default class TreeSelect extends PureComponent<Props, State> {
             }}
             checkable
             checkStrictly
+            switcherIcon={switcherIcon}
             defaultExpandedKeys={treeData.map((v: { id: string }) => v.id)} // 默认展开全部
             treeData={treeData}
             onCheck={(...args) => this.onCheck(args)}

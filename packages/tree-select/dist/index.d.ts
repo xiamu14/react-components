@@ -8,10 +8,16 @@ interface State {
     treeInitTag: boolean;
 }
 interface Props {
-    treeData: any[];
+    treeData: {
+        key: string;
+        value: string;
+        parentId: string;
+        id: string;
+    }[];
     initialValues?: any[];
     value?: any[];
     onChange: (checkedList: any[]) => void;
+    switcherIcon?: React.ReactElement<any>;
 }
 export default class TreeSelect extends PureComponent<Props, State> {
     constructor(props: Props);
