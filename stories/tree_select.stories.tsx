@@ -10,17 +10,17 @@ export default {
 
 const treeData = [
   {
-    title: "M0-手工",
+    title: "菜单组",
     pid: "m2",
     id: "m21"
   },
   {
-    title: "M1中-手工M1中-手工M1中-手工M1中-手工M1中-手工M1中-手工",
+    title: "菜单",
     pid: "m21",
     id: "m222"
   },
   {
-    title: "M1中-",
+    title: "接口",
     pid: "m222",
     id: "a21"
   }
@@ -71,8 +71,8 @@ export const TreeSelectNoProps = () => {
     <TreeSelect
       treeData={menuIdsTree}
       onChange={onChange}
-      initialValues={["a21"]}
       switcherIcon={<Icon type="down" />}
+      initialValues={["a21"]}
     />
   );
 };

@@ -110,7 +110,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css = ".select_box {\n  display: flex;\n  flex-wrap: wrap;\n  border: 1px solid #d9d9d9;\n  width: 100%;\n  min-height: 34px;\n  border-radius: 4px;\n  padding: 4px 4px 0;\n  box-sizing: border-box;\n  cursor: pointer;\n  z-index: 62;\n  position: relative; }\n\n.select_box_selection {\n  border-color: #40a9ff;\n  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2); }\n\n.select_box-block {\n  padding: 4px 10px;\n  margin-right: 4px;\n  margin-bottom: 4px;\n  border: 1px solid #e8e8e8;\n  border-radius: 2px;\n  background-color: #fafafa; }\n\n.tree_select {\n  position: relative; }\n  .tree_select > .tree_dropdown {\n    position: absolute;\n    transform: translateY(3px);\n    width: 100%;\n    background-color: #ffffff;\n    border-radius: 4px;\n    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);\n    animation-duration: 400ms;\n    z-index: 60; }\n  .tree_select > .tree_dropdown_init {\n    opacity: 0;\n    height: 0; }\n  .tree_select > .tree_dropdown_show {\n    animation-name: fadeIn;\n    animation-timing-function: ease-in;\n    animation-fill-mode: forwards; }\n  .tree_select > .tree_dropdown_hide {\n    animation-name: fadeOut;\n    animation-timing-function: ease-out;\n    animation-fill-mode: forwards; }\n  .tree_select .ant-tree li .ant-tree-node-content-wrapper {\n    width: 80%;\n    word-break: break-word;\n    white-space: pre-wrap;\n    height: auto; }\n\n@keyframes fadeIn {\n  from {\n    opacity: 0; }\n  to {\n    visibility: visible;\n    opacity: 1; } }\n\n@keyframes fadeOut {\n  from {\n    opacity: 1; }\n  to {\n    visibility: hidden;\n    opacity: 0; } }\n";
+var css = ".select_box {\n  display: flex;\n  flex-wrap: wrap;\n  border: 1px solid #d9d9d9;\n  width: 100%;\n  min-height: 36px;\n  border-radius: 4px;\n  padding: 2px 4px 0;\n  cursor: pointer;\n  z-index: 62;\n  position: relative;\n  box-sizing: border-box; }\n\n.select_box_selection {\n  border-color: #40a9ff;\n  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2); }\n\n.select_box-block {\n  padding: 2px 10px;\n  margin-right: 4px;\n  margin-bottom: 4px;\n  border: 1px solid #e8e8e8;\n  border-radius: 2px;\n  background-color: #fafafa; }\n\n.tree_select {\n  position: relative; }\n  .tree_select > .tree_dropdown {\n    position: absolute;\n    transform: translateY(3px);\n    width: 100%;\n    background-color: #ffffff;\n    border-radius: 4px;\n    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);\n    animation-duration: 400ms;\n    z-index: 60; }\n  .tree_select > .tree_dropdown_init {\n    opacity: 0;\n    height: 0; }\n  .tree_select > .tree_dropdown_show {\n    animation-name: fadeIn;\n    animation-timing-function: ease-in;\n    animation-fill-mode: forwards; }\n  .tree_select > .tree_dropdown_hide {\n    animation-name: fadeOut;\n    animation-timing-function: ease-out;\n    animation-fill-mode: forwards; }\n  .tree_select .ant-tree li .ant-tree-node-content-wrapper {\n    width: 80%;\n    word-break: break-word;\n    white-space: pre-wrap;\n    height: auto; }\n\n@keyframes fadeIn {\n  from {\n    opacity: 0; }\n  to {\n    visibility: visible;\n    opacity: 1; } }\n\n@keyframes fadeOut {\n  from {\n    opacity: 1; }\n  to {\n    visibility: hidden;\n    opacity: 0; } }\n";
 styleInject(css);
 
 // 去重
@@ -213,6 +213,11 @@ var TreeSelect = /** @class */ (function (_super) {
     __extends(TreeSelect, _super);
     function TreeSelect(props) {
         var _this = _super.call(this, props) || this;
+        _this.hideSelection = function () {
+            _this.setState({
+                selection: false
+            });
+        };
         _this.onSelection = function (event) {
             event.stopPropagation();
             var selection = _this.state.selection;
@@ -255,12 +260,11 @@ var TreeSelect = /** @class */ (function (_super) {
         return _this;
     }
     TreeSelect.prototype.componentDidMount = function () {
-        var _this = this;
-        window.addEventListener("click", function () {
-            _this.setState({
-                selection: false
-            });
-        });
+        window.addEventListener("click", this.hideSelection);
+    };
+    TreeSelect.prototype.componentWillUnmount = function () {
+        // 解决 window 的事件绑定
+        window.removeEventListener("click", this.hideSelection);
     };
     TreeSelect.getDerivedStateFromProps = function (nextProps, prevState) {
         var treeData = nextProps.treeData, initialValues = nextProps.initialValues, value = nextProps.value;

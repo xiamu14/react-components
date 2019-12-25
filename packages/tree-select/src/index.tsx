@@ -128,12 +128,19 @@ export default class TreeSelect extends PureComponent<Props, State> {
     };
   }
 
-  componentDidMount() {
-    window.addEventListener("click", () => {
-      this.setState({
-        selection: false
-      });
+  hideSelection = () => {
+    this.setState({
+      selection: false
     });
+  };
+
+  componentDidMount() {
+    window.addEventListener("click", this.hideSelection);
+  }
+
+  componentWillUnmount() {
+    // 解决 window 的事件绑定
+    window.removeEventListener("click", this.hideSelection);
   }
 
   static getDerivedStateFromProps(nextProps: Props, prevState: State) {

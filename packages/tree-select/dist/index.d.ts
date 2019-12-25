@@ -21,7 +21,9 @@ interface Props {
 }
 export default class TreeSelect extends PureComponent<Props, State> {
     constructor(props: Props);
+    hideSelection: () => void;
     componentDidMount(): void;
+    componentWillUnmount(): void;
     static getDerivedStateFromProps(nextProps: Props, prevState: State): {
         menuIds: any[];
     };
