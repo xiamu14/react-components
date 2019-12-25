@@ -35,10 +35,12 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     animation-duration: 400ms;
     z-index: 60;
+    display: block;
   }
   > .tree_dropdown_init {
     opacity: 0;
     height: 0;
+    display: none;
   }
   > .tree_dropdown_show {
     animation-name: fadeIn;
