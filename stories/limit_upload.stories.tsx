@@ -1,8 +1,57 @@
-import React from "react";
-import LimitUpload from "../packages/limit-upload/dist";
+import React, { useState } from "react";
+import { Button } from "antd";
+import {
+  SchemaForm,
+  Submit,
+  createAsyncFormActions,
+  registerFormField,
+  connect
+} from "@uform/antd";
+import LimitUpload from "../packages/limit-upload/src";
 
-export default {title: "限制上传图片"}
+export default { title: "限制上传图片" };
 
-export const withLimitUpload = () => {
-    return <LimitUpload onChange={() => {}} customRequest={() => {}} size={4} limit={1} fileType={["image/jpg", "image/jpeg"]} tips={<p className='tips' >建议上传图片尺寸为：685px * 245px，大小不超过 10M</p>}/>
-}
+const actions = createAsyncFormActions();
+
+// @ts-ignore
+registerFormField("limitUpload", connect()(LimitUpload));
+
+export const WithLimitUpload = () => {
+  const [limit, setLimit] = useState(1);
+  const onSubmit = (img: any) => {
+    console.log(
+      "%c查看下啊img",
+      "background: #69c0ff; color: white; padding: 4px",
+      img
+    );
+  };
+
+  const schema = {
+    type: "object",
+    properties: {
+      address: {
+        title: "测试上传",
+        "x-component": "limitUpload",
+        "x-props": {
+          action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+          limit
+        }
+      }
+    }
+  };
+
+  return (
+    <div>
+      <SchemaForm actions={actions} schema={schema} onSubmit={onSubmit}>
+        <Submit />
+      </SchemaForm>
+      <Button
+        onClick={() => {
+          setLimit(limitTmp => (limitTmp === 1 ? 3 : 1));
+        }}
+      >
+        切换 limit
+      </Button>
+    </div>
+  );
+};

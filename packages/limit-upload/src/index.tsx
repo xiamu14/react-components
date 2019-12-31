@@ -28,13 +28,16 @@ interface Props {
     | "image/ico"
   )[]; // 具体的图片格式，数据 jpeg,png,jpg
   tips?: React.ReactNode;
+  action?: string;
   onChange: (fileList: any) => void;
-  customRequest: (object: object) => void;
+  customRequest?: (object: object) => void;
 }
 
 interface State {
   previewVisible: boolean;
   previewImage: string;
+  fileList: any[];
+  limit: number;
 }
 
 export default class LimitUpload extends React.Component<Props> {
@@ -46,8 +49,23 @@ export default class LimitUpload extends React.Component<Props> {
 
   state: State = {
     previewVisible: false,
-    previewImage: ""
+    previewImage: "",
+    fileList: [],
+    limit: LimitUpload.defaultLimit
   };
+
+  static getDerivedStateFromProps(props: Props, state:State) {
+    const { limit } = props;
+    if (limit && limit !== state.limit) {
+      const {onChange} = props;
+      const {fileList} = state;
+      if (limit < fileList.length) {
+        onChange(fileList.slice(0, limit));
+      }
+      return { limit };
+    }
+    return null
+  }
 
   handleCancel = () => this.setState({ previewVisible: false });
 
@@ -84,6 +102,9 @@ export default class LimitUpload extends React.Component<Props> {
   // NOTE: 这里处理上报到上层
   handleChange = ({ fileList }: any) => {
     const { onChange } = this.props;
+    this.setState({
+      fileList
+    });
     onChange(fileList);
   };
 
@@ -107,7 +128,7 @@ export default class LimitUpload extends React.Component<Props> {
 
     const fileArr = value;
 
-    const accept = fileType ? fileType.join(",") : "image/*"
+    const accept = fileType ? fileType.join(",") : "image/*";
 
     return (
       <div className="clearfix">
