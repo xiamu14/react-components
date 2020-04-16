@@ -16,10 +16,11 @@ interface Props {
   children?: ReactNode;
   mask?: boolean;
   duration?: number; // 动画时长
+  header?: boolean; // 是否显示头部
 }
 
 const Modal: React.FC<Props> = props => {
-  const { visible, onCancel, mask = true, duration = 500 } = props;
+  const { visible, onCancel, mask = true, duration = 500, header = true } = props;
   const [isMount, setIsMount] = useState(false);
 
   useEffect(() => {
@@ -40,8 +41,6 @@ const Modal: React.FC<Props> = props => {
 
   const contentStyle = useSpring({
     config: { duration: duration / 3 * 2, delay: duration / 1 },
-    // from: { opacity: 0 },
-    // opacity: visible ? 1 : 0,
     transform: `scale(${visible ? 1 : 0})`
   })
 
@@ -59,7 +58,7 @@ const Modal: React.FC<Props> = props => {
           <div className={classNames({ "modal-overlay": true, "modal-mask": mask })} onClick={onCancel}></div>
           <animated.div style={contentStyle} className="modal-animate-box">
             <div className="modal">
-              <div className="modal-header">
+              {header ? <div className="modal-header">
                 <div
                   className="modal-close-button"
                   data-dismiss="modal"
@@ -68,9 +67,9 @@ const Modal: React.FC<Props> = props => {
                 >
                   <EvaCloseOutline size="22px" color="rgba(0,0,0,.75)" />
                 </div>
-                <div className="modal-content">
-                  {props.children ? props.children : <p>Hello, I'm a modal.</p>}
-                </div>
+              </div> : null}
+              <div className="modal-content">
+                {props.children ? props.children : <p>Hello, I'm a modal.</p>}
               </div>
             </div>
           </animated.div>
