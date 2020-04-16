@@ -1,6 +1,6 @@
 {
   "name": "@redchili/app-router",
-  "version": "1.0.3-alpha.0",
+  "version": "1.0.4-alpha.0",
   "description": "app 主页面访问的组件路由",
   "author": "xiamu14",
   "license": "MIT",
