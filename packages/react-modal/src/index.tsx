@@ -14,9 +14,9 @@ interface Props {
   visible: boolean;
   onCancel: () => void;
   children?: ReactNode;
-  mask?: boolean;
-  duration?: number; // 动画时长
+  mask?: boolean; // 是否显示底部蒙版
   header?: boolean; // 是否显示头部
+  duration?: number; // 动画时长
 }
 
 const Modal: React.FC<Props> = props => {
