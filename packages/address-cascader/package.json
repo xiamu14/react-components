@@ -25,7 +25,9 @@
     "deploy": "gh-pages -d example/build"
   },
   "dependencies": {
-    "antd": "^3.24.3"
+    "@types/classnames": "^2.2.10",
+    "antd": "^3.24.3",
+    "classnames": "^2.2.6"
   },
   "peerDependencies": {
     "antd": "^3.24.3",

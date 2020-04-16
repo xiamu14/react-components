@@ -12,17 +12,24 @@
   .modal-overlay {
     width: 100%;
     height: 100%;
-    background: rgba($color: #000000, $alpha: 0.45);
+    &.modal-mask {
+      background: rgba($color: #000000, $alpha: 0.45);
+    }
+  }
+  .modal-animate-box {
+    position: absolute;
+    width: 100%;
+    transform-origin: 0 0 0; // 设置缩放中心在左下角
   }
   .modal {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    min-width: 520px;
+    min-width: 70%;
     min-height: 400px;
     background-color: #ffffff;
-    border-radius: 4px;
+    border-radius: 6px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
   .modal-header {

@@ -20,8 +20,10 @@
     "start": "rollup -c -w"
   },
   "dependencies": {
+    "@types/classnames": "^2.2.10",
     "@uform/antd": "^0.4.3",
-    "antd": "^3.24.3"
+    "antd": "^3.24.3",
+    "classnames": "^2.2.6"
   },
   "peerDependencies": {
     "@uform/antd": "^0.4.3",

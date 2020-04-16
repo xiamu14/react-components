@@ -1,7 +1,7 @@
 {
-  "name": "chili-modal",
+  "name": "@redchili/react-modal",
   "version": "1.0.0-beta.1",
-  "description": "模态弹层",
+  "description": "基于 React 的模态弹层",
   "author": "xiamu14",
   "license": "MIT",
   "repository": "xiamu14/chili-modal",
@@ -20,6 +20,8 @@
     "analyze": "source-map-explorer 'dist/**/*.js'"
   },
   "dependencies": {
+    "@types/classnames": "^2.2.10",
+    "classnames": "^2.2.6",
     "react-icons-eva": "^0.1.1",
     "react-spring": "^8.0.27"
   },
