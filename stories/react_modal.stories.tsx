@@ -32,6 +32,7 @@ export function NoHeaderReactModal() {
       <Modal
         visible={visible}
         header={false}
+        className="custom-modal"
         onCancel={() => {
           setVisible(false)
         }}

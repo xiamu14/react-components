@@ -14,13 +14,14 @@ interface Props {
   visible: boolean;
   onCancel: () => void;
   children?: ReactNode;
+  className?: string;
   mask?: boolean; // 是否显示底部蒙版
   header?: boolean; // 是否显示头部
   duration?: number; // 动画时长
 }
 
 const Modal: React.FC<Props> = props => {
-  const { visible, onCancel, mask = true, duration = 500, header = true } = props;
+  const { visible, onCancel, className = "", mask = true, duration = 500, header = true } = props;
   const [isMount, setIsMount] = useState(false);
 
   useEffect(() => {
@@ -48,7 +49,7 @@ const Modal: React.FC<Props> = props => {
     ? ReactDOM.createPortal(
       <React.Fragment>
         <animated.div
-          className="modal-wrapper"
+          className={classNames(["modal-wrapper", className])}
           aria-modal
           aria-hidden
           tabIndex={-1}
