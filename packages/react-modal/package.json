@@ -8,6 +8,9 @@
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "engines": {
     "node": ">=8",
     "npm": ">=5"
@@ -56,5 +59,6 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "gitHead": "4e9403b8d2662658eada40e03c181ba41afbaea8"
 }

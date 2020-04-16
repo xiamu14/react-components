@@ -50,5 +50,6 @@
   "dependencies": {
     "@types/classnames": "^2.2.10",
     "classnames": "^2.2.6"
-  }
+  },
+  "gitHead": "4e9403b8d2662658eada40e03c181ba41afbaea8"
 }
