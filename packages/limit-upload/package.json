@@ -1,6 +1,6 @@
 {
   "name": "@redchili/limit-upload",
-  "version": "1.0.4-alpha.0",
+  "version": "1.0.5-alpha.0",
   "description": "实现条件约束的上传组件",
   "author": "xiamu14",
   "license": "MIT",
