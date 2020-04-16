@@ -1,6 +1,0 @@
-86 error Error: Command failed: git add -- packages/react-modal/package.json packages/app-router/package.json packages/limit-upload/package.json packages/address-cascader/package.json packages/responsive-table/package.json packages/react-quill/package.json packages/with-search-bar/package.json packages/tree-select/package.json packages/search-bar/package.json packages/search-table/package.json
-86 error fatal: Pathspec 'packages/responsive-table/package.json' is in submodule 'packages/responsive-table'
-86 error
-86 error     at makeError (/Users/ben/Documents/w/code/myproject/library/rc/node_modules/execa/index.js:174:9)
-86 error     at /Users/ben/Documents/w/code/myproject/library/rc/node_modules/execa/index.js:278:16
-86 error     at processTicksAndRejections (internal/process/task_queues.js:93:5)
