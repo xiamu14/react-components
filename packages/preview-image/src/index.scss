@@ -1,6 +1,7 @@
 .full_img {
   height: auto;
   cursor: pointer;
+  // margin: 6px 0;
 }
 
 .img_box {
@@ -10,4 +11,10 @@
 .picture {
   margin: 0 auto;
   object-fit: cover;
+}
+
+.full-img-modal {
+  .ant-modal-body {
+    padding: 12px;
+  }
 }

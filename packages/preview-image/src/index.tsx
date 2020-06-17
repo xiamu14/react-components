@@ -45,6 +45,7 @@ export default function PreviewImg(props: Props) {
         style={{
           padding: '12px'
         }}
+        className="full-img-modal"
       >
         <img src={src} alt="大图展示" className="full_img" width={fullWidth} onClick={() => setVisible(!visible)} />
       </Modal>
