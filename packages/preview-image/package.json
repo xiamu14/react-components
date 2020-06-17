@@ -1,7 +1,7 @@
 {
-  "name": "@redchili/descriptions-pro",
+  "name": "@redchili/preview-image",
   "version": "1.0.0",
-  "description": "支持更多显示组件的描述组件",
+  "description": "带预览大图的展示图片组件",
   "author": "xiamu14",
   "license": "MIT",
   "repository": "xiamu14/react-components",
