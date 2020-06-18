@@ -1,6 +1,6 @@
 import React from "react";
 import { SchemaForm, Submit, createAsyncFormActions } from "@uform/antd";
-import { registerFormField, connect } from "@uform/react";
+import { registerFormField, connect } from "@uform/antd";
 import AddressCascader, { Option } from "../packages/address-cascader/dist";
 import {combine, copyValLabel} from "../packages/address-cascader/dist/china_divisions";
 

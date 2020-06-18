@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { SchemaForm, Submit, createAsyncFormActions } from "@uform/antd";
-import { registerFormField, connect } from "@uform/react";
+import { registerFormField, connect } from "@uform/antd";
 import AddressCascader from "../packages/address-cascader/dist";
 import {
   combine,
@@ -50,15 +50,16 @@ export const withAddressCascader = () => {
   };
   const schemaForm = props => {
     const { isSearch } = props;
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
       if (!isSearch) {
-        actions.reset(true, false);
+        actions.reset({ forceClear: true, validate: false });
       }
     }, [isSearch]);
     return (
       <div>
         <SchemaForm
-        //   initialValues={initialValues}
+          //   initialValues={initialValues}
           actions={actions}
           schema={schema}
           onSubmit={props.onSubmit}
