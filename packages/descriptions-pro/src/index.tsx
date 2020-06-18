@@ -13,7 +13,7 @@ export interface ItemType {
 
 export interface DescriptionsProProps extends DescriptionsProps {
   data: ItemType[];
-  /** 文本居中显示 */
+  /** 文本居中显示(只有显示 border时 才有效果) */
   center?: boolean;
 }
 
