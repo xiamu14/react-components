@@ -8,6 +8,7 @@ export interface ItemType {
   className?: string;
   label: React.ReactNode;
   span?: number;
+  sort?: number;
   content: React.ReactNode;
 }
 
@@ -23,11 +24,13 @@ export default function DescriptionsPro(props: DescriptionsProProps) {
 
   const { data, center, ...other } = props;
 
+  const sortedData = data.sort((a, b) => (b.sort || 0) - (a.sort || 0))
+
   return (
     <div className={`${center ? 'text-align-center descriptions-pro' : "descriptions-pro"}  `}>
       {data.length > 0 ? <Descriptions {...other}>
         {
-          data.map((item, index) => {
+          sortedData.map((item, index) => {
             const { content, ...otherItem } = item;
             return <Item key={`${index}`} {...otherItem}>{item.content}</Item>
           })
