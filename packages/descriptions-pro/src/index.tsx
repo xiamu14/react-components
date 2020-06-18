@@ -1,7 +1,7 @@
 import React from "react";
 import { Descriptions } from "antd";
-import "./index.scss";
 import { DescriptionsProps } from "antd/lib/descriptions";
+import "./index.scss";
 
 export interface ItemType {
   prefixCls?: string;
@@ -12,17 +12,19 @@ export interface ItemType {
 }
 
 export interface DescriptionsProProps extends DescriptionsProps {
-  data: ItemType[]
+  data: ItemType[];
+  /** 文本居中显示 */
+  center?: boolean;
 }
 
 const { Item } = Descriptions;
 
 export default function DescriptionsPro(props: DescriptionsProProps) {
 
-  const { data, ...other } = props;
+  const { data, center, ...other } = props;
 
   return (
-    <div className="descriptions-pro">
+    <div className={`${center ? 'text-align-center descriptions-pro' : "descriptions-pro"}  `}>
       {data.length > 0 ? <Descriptions {...other}>
         {
           data.map((item, index) => {

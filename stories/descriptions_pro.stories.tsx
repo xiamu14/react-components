@@ -33,7 +33,9 @@ export const DescriptionsProNoProps = () => {
   return (
     <DescriptionPro
       data={data}
+      center
       bordered
+      layout="vertical"
     />
   );
 };

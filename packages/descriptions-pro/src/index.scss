@@ -1,0 +1,10 @@
+.descriptions-pro {
+  &.text-align-center {
+    .ant-descriptions .ant-descriptions-item-label {
+      text-align: center;
+    }
+    .ant-descriptions .ant-descriptions-item-content {
+      text-align: center;
+    }
+  }
+}
