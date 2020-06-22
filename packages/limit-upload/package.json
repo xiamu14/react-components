@@ -20,7 +20,7 @@
   },
   "peerDependencies": {
     "@ant-design/icons": "^4.2.1",
-    "antd": "^4.3.5",
+    "antd": "^4.1.0",
     "react": "^15.0.0 || ^16.0.0"
   },
   "devDependencies": {
@@ -51,7 +51,7 @@
   ],
   "dependencies": {
     "@ant-design/icons": "^4.2.1",
-    "antd": "^4.3.5",
+    "antd": "^4.1.0",
     "classnames": "^2.2.6"
   },
   "gitHead": "4e9403b8d2662658eada40e03c181ba41afbaea8"
