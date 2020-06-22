@@ -113,6 +113,7 @@ export default class LimitUpload extends React.Component<Props> {
     const uploadButton = (
       <div>
         {/* <Icon type="plus" /> */}
+        {/* @ts-ignore */}
         <PlusOutlined />
         <div className="ant-upload-text">上传</div>
       </div>
