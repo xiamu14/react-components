@@ -23,7 +23,8 @@
     "@types/classnames": "^2.2.10",
     "@uform/antd": "^0.4.3",
     "antd": "^3.24.3",
-    "classnames": "^2.2.6"
+    "classnames": "^2.2.6",
+    "typescript": "^3.9.5"
   },
   "peerDependencies": {
     "@uform/antd": "^0.4.3",

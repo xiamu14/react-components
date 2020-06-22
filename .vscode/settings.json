@@ -1,6 +1,8 @@
 {
     "cSpell.words": [
+        "cascader",
         "jsnext"
     ],
-    "deno.enable": false
+    "deno.enable": false,
+    "typescript.tsdk": "node_modules/typescript/lib"
 }

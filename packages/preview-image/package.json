@@ -20,7 +20,8 @@
     "start": "rollup -c -w"
   },
   "dependencies": {
-    "antd": "^4.1.0"
+    "antd": "^4.1.0",
+    "typescript": "^3.9.5"
   },
   "peerDependencies": {
     "antd": "^4.1.0",

@@ -19,11 +19,13 @@
     "build": "rollup -c"
   },
   "peerDependencies": {
-    "antd": "^3.24.3",
+    "@ant-design/icons": "^4.2.1",
+    "antd": "^4.3.5",
     "react": "^15.0.0 || ^16.0.0"
   },
   "devDependencies": {
     "@svgr/rollup": "^2.4.1",
+    "@types/classnames": "^2.2.10",
     "@types/jest": "^23.1.5",
     "@types/react": "^16.3.13",
     "@types/react-dom": "^16.0.5",
@@ -42,13 +44,14 @@
     "rollup-plugin-postcss": "^1.6.2",
     "rollup-plugin-typescript2": "^0.17.0",
     "rollup-plugin-url": "^1.4.0",
-    "typescript": "^2.8.3"
+    "typescript": "^3.9.5"
   },
   "files": [
     "dist"
   ],
   "dependencies": {
-    "@types/classnames": "^2.2.10",
+    "@ant-design/icons": "^4.2.1",
+    "antd": "^4.3.5",
     "classnames": "^2.2.6"
   },
   "gitHead": "4e9403b8d2662658eada40e03c181ba41afbaea8"

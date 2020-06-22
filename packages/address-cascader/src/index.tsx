@@ -21,7 +21,7 @@ interface Props {
 
 export default function AddressCascader(props: Props) {
   const { options, cascaderProps, value } = props;
-  const onChange = (...vals: any[]) => {
+  const handleChange = (...vals: any[]) => {
     const { onChange } = props;
     onChange(vals[1]);
   };
@@ -40,7 +40,7 @@ export default function AddressCascader(props: Props) {
     <Cascader
       value={finalValue}
       options={options}
-      onChange={onChange}
+      onChange={handleChange}
       {...cascaderProps}
     />
   );

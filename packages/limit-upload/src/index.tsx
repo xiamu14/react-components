@@ -1,7 +1,17 @@
 import React from "react";
-import { Upload, Icon, Modal, message } from "antd";
-
+import { Upload, Modal, message } from "antd";
 import "./index.scss";
+import { PlusOutlined } from "@ant-design/icons";
+
+type FileType = (
+  | "image/jpg"
+  | "image/png"
+  | "image/jpeg"
+  | "image/svg"
+  | "image/gif"
+  | "image/bmp"
+  | "image/ico"
+)[];
 
 function getBase64(file: Blob): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -12,12 +22,28 @@ function getBase64(file: Blob): Promise<string> {
   });
 }
 
+function beforeUpload(file: Blob, limit: number, fileType: FileType) {
+  const isLimit = file.size / 1024 / 1024 < limit;
+  if (!isLimit) {
+    message.error(`图片大小不能超过 ${limit}MB`);
+  }
+  let isType = true;
+  if (fileType) {
+    isType = fileType.indexOf(file.type as any) !== -1;
+    if (!isType) {
+      message.error(`请上传 ${fileType.join(",")} 格式的图片!`);
+    }
+  }
+  return isLimit && isType;
+}
+
 interface Props {
   value?: any[];
-  defaultValue?: any[];
   /** @description 图片限制数量  */
   limit?: number;
-  size?: number; // 限制上传大小(单位M)
+  /** @description 图片大小限制,单位 M */
+  limitSize?: number;
+  tips?: string;
   fileType?: (
     | "image/jpg"
     | "image/png"
@@ -27,45 +53,26 @@ interface Props {
     | "image/bmp"
     | "image/ico"
   )[]; // 具体的图片格式，数据 jpeg,png,jpg
-  tips?: React.ReactNode;
-  action?: string;
   onChange: (fileList: any) => void;
-  customRequest?: (object: object) => void;
+  customRequest: (object: object) => void;
 }
 
 interface State {
   previewVisible: boolean;
   previewImage: string;
-  fileList: any[];
-  limit: number;
+  forceUpdate: string;
+  // fileList: UploadFile[];
 }
 
 export default class LimitUpload extends React.Component<Props> {
-  // NOTE: 默认限制上传图片 8张
-  static defaultLimit = 8;
-  /** @desc 默认上传 10M 大小图片*/
-  static defaultSize = 10;
   static slider: any = null;
 
+  // eslint-disable-next-line react/state-in-constructor
   state: State = {
     previewVisible: false,
     previewImage: "",
-    fileList: [],
-    limit: LimitUpload.defaultLimit
+    forceUpdate: "",
   };
-
-  static getDerivedStateFromProps(props: Props, state:State) {
-    const { limit } = props;
-    if (limit && limit !== state.limit) {
-      const {onChange} = props;
-      const {fileList} = state;
-      if (limit < fileList.length) {
-        onChange(fileList.slice(0, limit));
-      }
-      return { limit };
-    }
-    return null
-  }
 
   handleCancel = () => this.setState({ previewVisible: false });
 
@@ -77,81 +84,64 @@ export default class LimitUpload extends React.Component<Props> {
 
     this.setState({
       previewImage: file.url || preview,
-      previewVisible: true
+      previewVisible: true,
     });
-  };
-
-  beforeUpload = (file: Blob) => {
-    const { size, fileType } = this.props;
-    const limitSize = size || LimitUpload.defaultSize;
-    const isLimit = file.size / 1024 / 1024 < limitSize;
-    if (!isLimit) {
-      message.error(`图片大小不能超过 ${limitSize}MB!`);
-    }
-
-    let isType = true;
-    if (fileType) {
-      isType = fileType.indexOf(file.type as any) === -1 ? false : true;
-      if (!isType) {
-        message.error(`请上传 ${fileType.join(",")} 格式的图片!`);
-      }
-    }
-    return isLimit && isType;
   };
 
   // NOTE: 这里处理上报到上层
   handleChange = ({ fileList }: any) => {
     const { onChange } = this.props;
-    this.setState({
-      fileList
-    });
     onChange(fileList);
+    const timer = setTimeout(() => {
+      this.setState({
+        forceUpdate: Date.now().toString(),
+      });
+      clearTimeout(timer);
+    }, 100);
   };
 
   render() {
-    const { previewVisible, previewImage } = this.state;
+    const { previewVisible, previewImage, forceUpdate } = this.state;
     const {
-      limit,
+      limit = 8,
       customRequest,
       value,
       tips,
-      fileType,
-      ...others
+      fileType = ["image/jpg", "image/png", "image/jpeg"],
+      limitSize = 10,
     } = this.props;
     const uploadButton = (
       <div>
-        <Icon type="plus" />
+        {/* <Icon type="plus" /> */}
+        <PlusOutlined />
         <div className="ant-upload-text">上传</div>
       </div>
     );
-    const limitLen = limit || LimitUpload.defaultLimit;
+    const limitLen = limit;
 
-    const fileArr = value;
-
-    const accept = fileType ? fileType.join(",") : "image/*";
-
+    // console.log("没有更新页面", value);
     return (
       <div className="clearfix">
         <Upload
-          {...others}
+          // {...others}
           listType="picture-card"
-          fileList={fileArr}
-          accept={accept}
+          fileList={value}
+          accept="image/*"
           onPreview={this.handlePreview}
           onChange={this.handleChange}
           customRequest={customRequest}
-          beforeUpload={this.beforeUpload}
+          beforeUpload={file => beforeUpload(file, limitSize, fileType)}
         >
-          {fileArr && fileArr.length >= limitLen ? null : uploadButton}
+          {value && value.length >= limitLen ? null : uploadButton}
         </Upload>
-        {/* <p className='tips' >建议上传图片尺寸为：685px * 245px，大小不超过 10M</p> */}
-        {tips || ""}
+        {tips ? <p className="tips">{tips}</p> : ""}
         <Modal
           visible={previewVisible}
           footer={null}
           onCancel={this.handleCancel}
         >
           <img alt="example" style={{ width: "100%" }} src={previewImage} />
+          <p style={{ display: "none" }}>{forceUpdate}</p>
         </Modal>
       </div>
     );
