@@ -1,6 +1,6 @@
 {
   "name": "@redchili/descriptions-pro",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "支持更多显示组件的描述组件",
   "author": "xiamu14",
   "license": "MIT",
@@ -25,9 +25,9 @@
   },
   "peerDependencies": {
     "antd": "^4.1.0",
+    "data-matcher": "^0.1.7",
     "react": "^15.0.0 || ^16.0.0",
-    "react-dom": "^15.0.0 || ^16.0.0",
-    "data-matcher": "^0.1.7"
+    "react-dom": "^15.0.0 || ^16.0.0"
   },
   "devDependencies": {
     "@svgr/rollup": "^2.4.1",
