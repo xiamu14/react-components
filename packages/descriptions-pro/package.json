@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "antd": "^4.1.0",
+    "data-matcher": "^0.1.7",
     "typescript": "^3.9.5"
   },
   "peerDependencies": {
