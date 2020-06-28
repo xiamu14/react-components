@@ -34,14 +34,24 @@ const schema: Schema[] = [
   },
 ];
 
+const groups = [
+  {
+    title: "测试",
+    children: ['picture', 'name',]
+  },
+  {
+    title: "测试2",
+    children: ['interest', 'age', ]
+  }
+]
 
 export const DescriptionsProNoProps = () => {
   return (
     <DescriptionPro
       schema={schema}
       data={data}
+      groups={groups}
       center
-      bordered
     />
   );
 };
