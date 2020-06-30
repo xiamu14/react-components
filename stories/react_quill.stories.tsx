@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ReactQuill, { ResFiles } from "../packages/react-quill/src";
+import ReactQuill, { ResFiles } from "../packages/react-quill/dist";
 import {
   SchemaForm,
   Submit,
@@ -34,7 +34,7 @@ const options = {
       container
     }
   },
-  placeholder: "请输入资讯正文...",
+  placeholder: "请输入正文...",
   theme: "snow"
 };
 
@@ -66,6 +66,17 @@ export const WithReactQuill = () => {
         required: true
       },
       content: {
+        type: "string",
+        title: "资讯内容",
+        "x-component": "react-quill",
+        "x-props": {
+          options,
+          mediaRequest: cusRequest,
+          height: "300px"
+        },
+        required: true
+      },
+      main: {
         type: "string",
         title: "资讯内容",
         "x-component": "react-quill",

@@ -38,17 +38,17 @@ export default function ReactQuill(props: Props) {
       setEditor(new Quill(quillBoxEl.current, props.options));
     } else {
       // 监听文本输入内容，并通过 props.onChange 返回
-      const el = document.querySelector(".ql-editor");
-
-        (editor as any).on(
-          "text-change",
-          _throttle(() => {
-            props.onChange &&
-              props.onChange(
-                el ? (el.innerHTML !== "<p><br></p>" ? el.innerHTML : "") : ""
-              ); // 还要剔除 空内容 '<p><br></p>'
-          }, 1000)
-        );
+      // const el = document.querySelector(".ql-editor");
+      const el = quillBoxEl.current.querySelector(".ql-editor");
+      (editor as any).on(
+        "text-change",
+        _throttle(() => {
+          props.onChange &&
+            props.onChange(
+              el ? (el.innerHTML !== "<p><br></p>" ? el.innerHTML : "") : ""
+            ); // 还要剔除 空内容 '<p><br></p>'
+        }, 1000)
+      );
 
       // 注册自定义的 videoBlot(返回 video 标签内容)
       VideoBlot.blotName = "cusVideo";
