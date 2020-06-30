@@ -84,3 +84,7 @@
 .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="monospace"]::before {
   content: "等宽字体";
 }
+
+.ql-container {
+  font-size: 16px;
+}

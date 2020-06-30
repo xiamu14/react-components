@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import ReactQuill, { ResFiles } from "../packages/react-quill/dist";
+import ReactQuill, { ResFiles } from "../packages/react-quill/src";
 import {
   SchemaForm,
   Submit,
+  Reset,
   createFormActions,
   FormButtonGroup,
   registerFormField,
   connect
 } from "@uform/antd";
 import "quill/dist/quill.snow.css";
-import "../packages/react-quill/dist/local.css";
+import "../packages/react-quill/src/local.css";
 export default {
   title: "react quill"
 };
@@ -37,7 +38,7 @@ const options = {
   theme: "snow"
 };
 
-export const withReactQuill = () => {
+export const WithReactQuill = () => {
   const cusRequest = async (
     res: any,
     type: "image" | "video"
@@ -70,7 +71,7 @@ export const withReactQuill = () => {
         "x-component": "react-quill",
         "x-props": {
           options,
-          cusRequest,
+          mediaRequest: cusRequest,
           height: "300px"
         },
         required: true
@@ -84,11 +85,11 @@ export const withReactQuill = () => {
     }
   };
 
-  const [value, setValue] = useState();
+  const [value, setValue] = useState<any>();
 
   useEffect(() => {
     setValue({
-      content: "测试内容"
+      content: ""
     });
   }, []);
 
@@ -106,6 +107,7 @@ export const withReactQuill = () => {
       >
         <FormButtonGroup offset={4}>
           <Submit />
+          <Reset />
         </FormButtonGroup>
       </SchemaForm>
     </div>

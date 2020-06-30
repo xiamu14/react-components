@@ -16,7 +16,7 @@ interface Props {
   width?: string;
   height?: string;
   minHeight?: string;
-  medioRequest?: (
+  mediaRequest?: (
     files: FileList[],
     type: "image" | "video"
   ) => Promise<ResFiles>;
@@ -26,7 +26,7 @@ interface Props {
 export default function ReactQuill(props: Props) {
   const quillBoxEl = useRef<any>(null);
   const inputEl = useRef<any>(null);
-  const [medioType, setMedioType] = useState<"image" | "video">("image");
+  const [mediaType, setMediaType] = useState<"image" | "video">("image");
   const [editor, setEditor] = useState();
   const [initial, setInitial] = useState(false);
   const { value } = props;
@@ -34,19 +34,22 @@ export default function ReactQuill(props: Props) {
   // init quill
   useEffect(() => {
     if (!editor) {
+      // @ts-ignore
       setEditor(new Quill(quillBoxEl.current, props.options));
     } else {
       // 监听文本输入内容，并通过 props.onChange 返回
       const el = document.querySelector(".ql-editor");
-      editor.on(
-        "text-change",
-        _throttle(() => {
-          props.onChange &&
-            props.onChange(
-              el ? (el.innerHTML !== "<p><br></p>" ? el.innerHTML : "") : ""
-            ); // 还要剔除 空内容 '<p><br></p>'
-        }, 1000)
-      );
+
+        (editor as any).on(
+          "text-change",
+          _throttle(() => {
+            props.onChange &&
+              props.onChange(
+                el ? (el.innerHTML !== "<p><br></p>" ? el.innerHTML : "") : ""
+              ); // 还要剔除 空内容 '<p><br></p>'
+          }, 1000)
+        );
+
       // 注册自定义的 videoBlot(返回 video 标签内容)
       VideoBlot.blotName = "cusVideo";
       VideoBlot.tagName = "video";
@@ -54,29 +57,29 @@ export default function ReactQuill(props: Props) {
 
       // 监听 toolbar 的 image、video 按钮，并实现外部自定义上传文件并显示
 
-      const toolbar = editor.getModule("toolbar");
+      const toolbar = (editor as any).getModule("toolbar");
 
       toolbar.addHandler("image", () => {
-        setMedioType("image");
+        setMediaType("image");
         inputEl.current.click();
       });
 
       toolbar.addHandler("video", () => {
-        setMedioType("video");
+        setMediaType("video");
         inputEl.current.click();
       });
 
       inputEl.current.addEventListener("change", async () => {
         const files = inputEl.current.files;
-        const medioTypeCopy = inputEl.current.getAttribute("name");
-        const addImageRange = editor.getSelection();
+        const mediaTypeCopy = inputEl.current.getAttribute("name");
+        const addImageRange = (editor as any).getSelection();
         const newRange = 0 + (addImageRange !== null ? addImageRange.index : 0);
-        if (files.length > 0 && props.medioRequest) {
-          const resFile = await props.medioRequest(files, medioTypeCopy);
-          if (medioTypeCopy === "image") {
-            editor.insertEmbed(newRange, "image", resFile.url);
+        if (files.length > 0 && props.mediaRequest) {
+          const resFile = await props.mediaRequest(files, mediaTypeCopy);
+          if (mediaTypeCopy === "image") {
+            (editor as any).insertEmbed(newRange, "image", resFile.url);
           } else {
-            editor.insertEmbed(newRange, "cusVideo", {
+            (editor as any).insertEmbed(newRange, "cusVideo", {
               url: resFile.url,
               controls: "controls",
               width: "100%",
@@ -84,19 +87,26 @@ export default function ReactQuill(props: Props) {
             });
           }
         }
-        editor.setSelection(1 + newRange, 1);
+        (editor as any).setSelection(1 + newRange, 1);
       });
     }
-  }, [editor]);
+  }, [editor, props]);
 
   // initialValues
   useEffect(() => {
-
     if (editor && value && !initial) {
-      const delta = editor.clipboard.convert(value);
-      editor.setContents(delta);
+      const delta = (editor as any).clipboard.convert(value);
+      (editor as any).setContents(delta);
 
       setInitial(true);
+    }
+  }, [editor, initial, value]);
+
+  // reset
+  useEffect(() => {
+    if (value === "" || value === "undefined" && editor) {
+      const delta = (editor as any).clipboard.convert("");
+      (editor as any).setContents(delta);
     }
   }, [editor, value]);
 
@@ -114,8 +124,8 @@ export default function ReactQuill(props: Props) {
       <input
         ref={inputEl}
         type="file"
-        name={medioType}
-        accept={medioType === "image" ? "image/*" : "video/*"}
+        name={mediaType}
+        accept={mediaType === "image" ? "image/*" : "video/*"}
         style={{ display: "none" }}
       />
     </div>
