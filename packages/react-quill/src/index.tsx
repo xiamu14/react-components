@@ -24,6 +24,7 @@ interface Props {
 }
 
 export default function ReactQuill(props: Props) {
+  const { mediaRequest } = props;
   const quillBoxEl = useRef<any>(null);
   const inputEl = useRef<any>(null);
   const [mediaType, setMediaType] = useState<"image" | "video">("image");
@@ -50,6 +51,14 @@ export default function ReactQuill(props: Props) {
         }, 1000)
       );
 
+
+    }
+  }, [editor, props]);
+
+  // monitor
+  useEffect(() => {
+    if (editor) {
+      console.log("这里应该没有一直重复吧");
       // 注册自定义的 videoBlot(返回 video 标签内容)
       VideoBlot.blotName = "cusVideo";
       VideoBlot.tagName = "video";
@@ -74,8 +83,8 @@ export default function ReactQuill(props: Props) {
         const mediaTypeCopy = inputEl.current.getAttribute("name");
         const addImageRange = (editor as any).getSelection();
         const newRange = 0 + (addImageRange !== null ? addImageRange.index : 0);
-        if (files.length > 0 && props.mediaRequest) {
-          const resFile = await props.mediaRequest(files, mediaTypeCopy);
+        if (files.length > 0 && mediaRequest) {
+          const resFile = await mediaRequest(files, mediaTypeCopy);
           if (mediaTypeCopy === "image") {
             (editor as any).insertEmbed(newRange, "image", resFile.url);
           } else {
@@ -90,7 +99,7 @@ export default function ReactQuill(props: Props) {
         (editor as any).setSelection(1 + newRange, 1);
       });
     }
-  }, [editor, props]);
+  }, [editor, mediaRequest])
 
   // initialValues
   useEffect(() => {
