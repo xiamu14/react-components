@@ -110,7 +110,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css = ".select_box {\n  display: flex;\n  flex-wrap: wrap;\n  border: 1px solid #d9d9d9;\n  width: 100%;\n  min-height: 36px;\n  border-radius: 4px;\n  padding: 2px 4px 0;\n  cursor: pointer;\n  z-index: 62;\n  position: relative;\n  box-sizing: border-box; }\n\n.select_box_selection {\n  border-color: #40a9ff;\n  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2); }\n\n.select_box-block {\n  padding: 2px 10px;\n  margin-right: 4px;\n  margin-bottom: 4px;\n  border: 1px solid #e8e8e8;\n  border-radius: 2px;\n  background-color: #fafafa; }\n\n.tree-box {\n  height: 400px;\n  overflow-y: scroll;\n  padding: 6px;\n  border: 1px solid #e8e8e8; }\n";
+var css = ".select_box {\n  display: flex;\n  flex-wrap: wrap;\n  border: 1px solid #d9d9d9;\n  width: 100%;\n  min-height: 36px;\n  border-radius: 4px;\n  padding: 2px 4px 0;\n  cursor: pointer;\n  z-index: 62;\n  position: relative;\n  box-sizing: border-box; }\n\n.select_box_selection {\n  border-color: #40a9ff;\n  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2); }\n\n.select_box-block {\n  padding: 2px 10px;\n  margin-right: 4px;\n  margin-bottom: 4px;\n  border: 1px solid #e8e8e8;\n  border-radius: 2px;\n  background-color: #fafafa; }\n\n.tree-box {\n  height: 400px;\n  overflow-y: scroll;\n  padding: 6px;\n  border: 1px solid #e9e9e9;\n  border-radius: 2px; }\n";
 styleInject(css);
 
 // 去重
