@@ -9,18 +9,18 @@ var React__default = _interopDefault(React);
 var antd = require('antd');
 
 /*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
+Copyright (c) Microsoft Corporation.
 
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
 
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
@@ -110,7 +110,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css = ".select_box {\n  display: flex;\n  flex-wrap: wrap;\n  border: 1px solid #d9d9d9;\n  width: 100%;\n  min-height: 36px;\n  border-radius: 4px;\n  padding: 2px 4px 0;\n  cursor: pointer;\n  z-index: 62;\n  position: relative;\n  box-sizing: border-box; }\n\n.select_box_selection {\n  border-color: #40a9ff;\n  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2); }\n\n.select_box-block {\n  padding: 2px 10px;\n  margin-right: 4px;\n  margin-bottom: 4px;\n  border: 1px solid #e8e8e8;\n  border-radius: 2px;\n  background-color: #fafafa; }\n\n.tree_select {\n  position: relative; }\n  .tree_select > .tree_dropdown {\n    position: absolute;\n    transform: translateY(3px);\n    width: 100%;\n    background-color: #ffffff;\n    border-radius: 4px;\n    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);\n    animation-duration: 400ms;\n    z-index: 60;\n    display: block; }\n  .tree_select > .tree_dropdown_init {\n    opacity: 0;\n    height: 0;\n    display: none; }\n  .tree_select > .tree_dropdown_show {\n    animation-name: fadeIn;\n    animation-timing-function: ease-in;\n    animation-fill-mode: forwards; }\n  .tree_select > .tree_dropdown_hide {\n    animation-name: fadeOut;\n    animation-timing-function: ease-out;\n    animation-fill-mode: forwards; }\n  .tree_select .ant-tree li .ant-tree-node-content-wrapper {\n    width: 80%;\n    word-break: break-word;\n    white-space: pre-wrap;\n    height: auto; }\n\n@keyframes fadeIn {\n  from {\n    opacity: 0; }\n  to {\n    visibility: visible;\n    opacity: 1; } }\n\n@keyframes fadeOut {\n  from {\n    opacity: 1; }\n  to {\n    visibility: hidden;\n    opacity: 0; } }\n";
+var css = ".select_box {\n  display: flex;\n  flex-wrap: wrap;\n  border: 1px solid #d9d9d9;\n  width: 100%;\n  min-height: 36px;\n  border-radius: 4px;\n  padding: 2px 4px 0;\n  cursor: pointer;\n  z-index: 62;\n  position: relative;\n  box-sizing: border-box; }\n\n.select_box_selection {\n  border-color: #40a9ff;\n  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2); }\n\n.select_box-block {\n  padding: 2px 10px;\n  margin-right: 4px;\n  margin-bottom: 4px;\n  border: 1px solid #e8e8e8;\n  border-radius: 2px;\n  background-color: #fafafa; }\n\n.tree-box {\n  height: 400px;\n  overflow-y: scroll;\n  padding: 6px;\n  border: 1px solid #e8e8e8; }\n";
 styleInject(css);
 
 // 去重
@@ -286,28 +286,21 @@ var TreeSelect = /** @class */ (function (_super) {
     };
     TreeSelect.prototype.render = function () {
         var _this = this;
-        var _a = this.state, treeData = _a.treeData, menuIds = _a.menuIds, menuIdsListOrder = _a.menuIdsListOrder;
-        var switcherIcon = this.props.switcherIcon;
+        var _a = this.state, treeData = _a.treeData, menuIds = _a.menuIds;
+        var _b = this.props, switcherIcon = _b.switcherIcon, _c = _b.width, width = _c === void 0 ? '300px' : _c, _d = _b.height, height = _d === void 0 ? '300px' : _d;
         var menuIdsHalfChecked = getHalfCheckedKeys(treeData, menuIds);
         var menuIdsChecked = filter(menuIds, menuIdsHalfChecked);
-        var menuCheckedList = menuIdsListOrder.filter(function (v) { return menuIds.indexOf(v.id) > -1; });
-        return (React__default.createElement("div", { className: "tree_select", style: { width: "300px" } },
-            React__default.createElement("section", { className: "select_box " + (this.state.selection ? "select_box_selection" : ""), onClick: this.onSelection }, menuCheckedList.map(function (item, index) { return (React__default.createElement("span", { className: "select_box-block", key: String(index) }, item.title)); })),
-            React__default.createElement("div", { className: "tree_dropdown " + (this.state.selection
-                    ? "tree_dropdown_show"
-                    : this.state.treeInitTag
-                        ? "tree_dropdown_hide"
-                        : "tree_dropdown_init"), onClick: function (e) { return e.stopPropagation(); } },
-                React__default.createElement(antd.Tree, { checkedKeys: {
-                        checked: menuIdsChecked,
-                        halfChecked: menuIdsHalfChecked
-                    }, checkable: true, checkStrictly: true, switcherIcon: switcherIcon, defaultExpandedKeys: treeData.map(function (v) { return v.id; }), treeData: treeData, onCheck: function () {
-                        var args = [];
-                        for (var _i = 0; _i < arguments.length; _i++) {
-                            args[_i] = arguments[_i];
-                        }
-                        return _this.onCheck(args);
-                    } }))));
+        return (React__default.createElement("div", { className: "tree-box", style: { width: width, height: height } },
+            React__default.createElement(antd.Tree, { checkedKeys: {
+                    checked: menuIdsChecked,
+                    halfChecked: menuIdsHalfChecked
+                }, checkable: true, checkStrictly: true, switcherIcon: switcherIcon, defaultExpandedKeys: treeData.map(function (v) { return v.id; }), treeData: treeData, onCheck: function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    return _this.onCheck(args);
+                } })));
     };
     return TreeSelect;
 }(React.PureComponent));

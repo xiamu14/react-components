@@ -15,6 +15,8 @@ interface Props {
         id: string;
     }[];
     initialValues?: any[];
+    width?: string;
+    height?: string;
     value?: any[];
     onChange: (checkedList: any[]) => void;
     switcherIcon?: React.ReactElement<any>;
@@ -27,7 +29,7 @@ export default class TreeSelect extends PureComponent<Props, State> {
     static getDerivedStateFromProps(nextProps: Props, prevState: State): {
         menuIds: any[];
     };
-    onSelection: (event: React.MouseEvent<Element, MouseEvent>) => void;
+    onSelection: (event: React.MouseEvent) => void;
     onCheck: (args: any) => void;
     render(): JSX.Element;
 }
