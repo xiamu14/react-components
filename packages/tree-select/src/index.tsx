@@ -1,6 +1,5 @@
 import React, { PureComponent } from "react";
 import { Tree } from "antd";
-import "antd/dist/antd.css";
 import "./index.scss";
 // 去重
 const unique = (arr: any[]) => [...new Set(arr)];
@@ -112,6 +111,8 @@ interface State {
 interface Props {
   treeData: { key: string; value: string; parentId: string; id: string }[];
   initialValues?: any[];
+  width?: string;
+  height?: string;
   value?: any[];
   onChange: (checkedList: any[]) => void;
   switcherIcon?: React.ReactElement<any>;
@@ -205,36 +206,15 @@ export default class TreeSelect extends PureComponent<Props, State> {
   };
 
   render() {
-    const { treeData, menuIds, menuIdsListOrder } = this.state;
-    const { switcherIcon } = this.props;
+    const { treeData, menuIds } = this.state;
+    const { switcherIcon, width = '300px', height = '300px' } = this.props;
     const menuIdsHalfChecked = getHalfCheckedKeys(treeData, menuIds as any[]);
     const menuIdsChecked = filter(menuIds as any[], menuIdsHalfChecked);
-    const menuCheckedList = menuIdsListOrder.filter(
-      v => (menuIds as any[]).indexOf(v.id) > -1
-    );
+
     return (
-      <div className="tree_select" style={{ width: "300px" }}>
-        <section
-          className={`select_box ${
-            this.state.selection ? "select_box_selection" : ""
-          }`}
-          onClick={this.onSelection}
-        >
-          {menuCheckedList.map((item: { title: string }, index: number) => (
-            <span className="select_box-block" key={String(index)}>
-              {item.title}
-            </span>
-          ))}
-        </section>
         <div
-          className={`tree_dropdown ${
-            this.state.selection
-              ? "tree_dropdown_show"
-              : this.state.treeInitTag
-              ? "tree_dropdown_hide"
-              : "tree_dropdown_init"
-          }`}
-          onClick={e => e.stopPropagation()}
+          className="tree-box"
+          style={{ width, height }}
         >
           <Tree
             checkedKeys={{
@@ -249,7 +229,6 @@ export default class TreeSelect extends PureComponent<Props, State> {
             onCheck={(...args) => this.onCheck(args)}
           />
         </div>
-      </div>
     );
   }
 }

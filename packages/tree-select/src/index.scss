@@ -24,60 +24,10 @@
   background-color: #fafafa;
 }
 
-.tree_select {
-  position: relative;
-  > .tree_dropdown {
-    position: absolute;
-    transform: translateY(3px);
-    width: 100%;
-    background-color: #ffffff;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    animation-duration: 400ms;
-    z-index: 60;
-    display: block;
-  }
-  > .tree_dropdown_init {
-    opacity: 0;
-    height: 0;
-    display: none;
-  }
-  > .tree_dropdown_show {
-    animation-name: fadeIn;
-    animation-timing-function: ease-in;
-    animation-fill-mode: forwards;
-  }
-  > .tree_dropdown_hide {
-    animation-name: fadeOut;
-    animation-timing-function: ease-out;
-    animation-fill-mode: forwards;
-  }
-  .ant-tree li .ant-tree-node-content-wrapper {
-    width: 80%;
-    word-break: break-word;
-    white-space: pre-wrap;
-    height: auto;
-  }
+.tree-box {
+  height: 400px;
+  overflow-y: scroll;
+  padding: 6px;
+  border: 1px solid #e8e8e8;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    visibility: visible;
-    opacity: 1;
-  }
-}
-
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    visibility: hidden;
-    opacity: 0;
-  }
-}
