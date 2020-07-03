@@ -1,6 +1,6 @@
 {
   "name": "@redchili/tree-select",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "树结构数组选择器(基于 ant-design tree 组件)",
   "author": "xiamu14",
   "license": "MIT",
