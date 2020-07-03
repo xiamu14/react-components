@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import { Tree } from "antd";
+import "antd/dist/antd.css";
 import "./index.scss";
 // 去重
 const unique = (arr: any[]) => [...new Set(arr)];

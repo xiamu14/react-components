@@ -1,10 +1,10 @@
 {
-  "name": "@redchili/tree-select",
-  "version": "1.0.7",
-  "description": "树结构数组选择器(基于 ant-design tree 组件)",
+  "name": "@redchili/react-tabs",
+  "version": "1.0.0",
+  "description": "标签页组件",
   "author": "xiamu14",
   "license": "MIT",
-  "repository": "xiamu14/search-bar",
+  "repository": "xiamu14/react-components",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
@@ -19,16 +19,10 @@
     "build": "rollup -c",
     "start": "rollup -c -w"
   },
-  "dependencies": {
-    "@types/classnames": "^2.2.10",
-    "antd": "^3.24.3",
-    "classnames": "^2.2.6",
-    "typescript": "^3.9.5"
-  },
   "peerDependencies": {
-    "antd": "^3.24.3",
     "react": "^15.0.0 || ^16.0.0",
-    "react-dom": "^15.0.0 || ^16.0.0"
+    "react-dom": "^15.0.0 || ^16.0.0",
+    "use-constant": "^1.0.0"
   },
   "devDependencies": {
     "@svgr/rollup": "^2.4.1",
@@ -49,13 +43,13 @@
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-peer-deps-external": "^2.2.0",
     "rollup-plugin-postcss": "^1.6.2",
-    "rollup-plugin-scss": "^1.0.2",
+    "rollup-plugin-scss": "^2.5.0",
     "rollup-plugin-typescript2": "^0.24.3",
     "rollup-plugin-url": "^1.4.0",
-    "typescript": "^3.6.4"
+    "typescript": "^3.9.5"
   },
   "files": [
     "dist"
   ],
-  "gitHead": "4e9403b8d2662658eada40e03c181ba41afbaea8"
+  "gitHead": "962da3095d0e92f8c3cf69a05a4cd4a5ddf9154c"
 }

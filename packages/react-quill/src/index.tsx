@@ -58,7 +58,7 @@ export default function ReactQuill(props: Props) {
   // monitor
   useEffect(() => {
     if (editor) {
-      console.log("这里应该没有一直重复吧");
+      // console.log("这里应该没有一直重复吧");
       // 注册自定义的 videoBlot(返回 video 标签内容)
       VideoBlot.blotName = "cusVideo";
       VideoBlot.tagName = "video";
