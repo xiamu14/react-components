@@ -83,15 +83,13 @@ export const usePanelState = () => {
   const { state } = useContext(TabsState)
   const elements = useContext(Elements)
 
-  // const panelIndex = useConstant(() => {
-  //   const currentIndex = elements.panels
-  //   elements.panels += 1
+  const panelIndex = useConstant(() => {
+    const currentIndex = elements.panels
+    elements.panels += 1
 
-  //   return currentIndex
-  // })
+    return currentIndex
+  });
 
-  const panelIndex = elements.panels
-  elements.panels += 1
 
   return panelIndex === state[0];
 }
