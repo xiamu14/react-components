@@ -38,9 +38,9 @@ export const Tabs = ({ defaultIndex, children }: React.PropsWithChildren<TabsPro
 }
 
 export const usePrevTabState = () => {
-  const { prevState,state } = useContext(TabsState);
+  const { prevState, state } = useContext(TabsState);
 
-  return {activeTab: state[0], prevTab: prevState[0]};
+  return { activeTab: state[0], prevTab: prevState[0] };
 }
 
 export const useTabState = () => {
@@ -57,7 +57,7 @@ export const useTabState = () => {
     return currentIndex
   });
   const onClick = useConstant(
-    () => (v:number) => {
+    () => (v: number) => {
       if (v !== tabIndex) {
         setPrevIndex(v); // 缓存为上一次
       }
@@ -87,13 +87,14 @@ export const usePanelState = () => {
   return panelIndex === state[0];
 }
 
-export const Tab = ({ children }: {children: React.ReactNode}) => {
+export const Tab = ({ children }: { children: React.ReactNode }) => {
   const state = useTabState();
   // NOTE: react 内部使用规则
   const props = {
     activeindex: state.activeIndex,
     isactive: state.isActive.toString(),
-    onClick: () => state.onClick(state.activeIndex)
+    onClick: () => state.onClick(state.activeIndex),
+    className: `${state.isActive ? "active": ""}`
   };
   if (typeof children === 'function') {
     return children(props)
@@ -102,9 +103,8 @@ export const Tab = ({ children }: {children: React.ReactNode}) => {
   return isValidElement(children) ? cloneElement(children, props) : children
 }
 
-export const Panel = ({ children }: {children: React.ReactNode}): any => {
+export const Panel = ({ children }: { children: React.ReactNode }): any => {
   const isActive = usePanelState()
-
   // TODO: 这里需要优化动画
   return isActive ? children : null;
 }
