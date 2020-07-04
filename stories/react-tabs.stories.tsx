@@ -22,7 +22,7 @@ export const ReactTabsNoProps = () => {
   return (
     <Tabs defaultIndex={1}>
       <TabBox>
-        <Tab><div style={{ width: '80px', fontSize: "20px"  }}>计划</div></Tab>
+        <Tab><div className="test" style={{ width: '80px', fontSize: "20px"  }}>计划</div></Tab>
         <Tab><div style={{ width: '80px', fontSize: "20px"  }}>时间轴</div></Tab>
       </TabBox>
 

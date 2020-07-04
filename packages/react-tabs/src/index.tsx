@@ -97,10 +97,13 @@ export const Tab = ({ children }: { children: React.ReactNode }) => {
     className: `${state.isActive ? "active": ""}`
   };
   if (typeof children === 'function') {
-    return children(props)
+    return children(props);
   }
 
-  return isValidElement(children) ? cloneElement(children, props) : children
+  // @ts-ignore
+  props.className += ` ${children.props.className ? children.props.className : ''}`;
+
+  return isValidElement(children) ? cloneElement(children, {...children.props, ...props}) : children
 }
 
 export const Panel = ({ children }: { children: React.ReactNode }): any => {
