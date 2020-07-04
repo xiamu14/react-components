@@ -28,7 +28,7 @@ const Elements = createContext<ElementsType>({ tabs: 0, panels: 0 });
 export const Tabs = ({ defaultIndex, children }: React.PropsWithChildren<TabsProps>) => {
   const state = useState<number>(defaultIndex || 0);
   const prevState = useState<number | null>(null); // 存储上一次 state;
-  const elements = useConstant(() => ({ tabs: 0, panels: 0 }))
+  const elements = { tabs: 0, panels: 0 };
 
   return (
     <Elements.Provider value={elements}>
@@ -50,12 +50,17 @@ export const useTabState = () => {
 
   const elements = useContext<ElementsType>(Elements)
 
-  const tabIndex = useConstant(() => {
-    const currentIndex = elements.tabs
-    elements.tabs += 1
+  // const tabIndex = useConstant(() => {
+  //   const currentIndex = elements.tabs
+  //   elements.tabs += 1
 
-    return currentIndex
-  });
+  //   return currentIndex
+
+  // });
+
+  const tabIndex = elements.tabs;
+  elements.tabs += 1;
+
   const onClick = useConstant(
     () => (v: number) => {
       if (v !== tabIndex) {
@@ -78,12 +83,16 @@ export const usePanelState = () => {
   const { state } = useContext(TabsState)
   const elements = useContext(Elements)
 
-  const panelIndex = useConstant(() => {
-    const currentIndex = elements.panels
-    elements.panels += 1
+  // const panelIndex = useConstant(() => {
+  //   const currentIndex = elements.panels
+  //   elements.panels += 1
 
-    return currentIndex
-  })
+  //   return currentIndex
+  // })
+
+  const panelIndex = elements.panels
+  elements.panels += 1
+
   return panelIndex === state[0];
 }
 
@@ -94,7 +103,7 @@ export const Tab = ({ children }: { children: React.ReactNode }) => {
     activeindex: state.activeIndex,
     isactive: state.isActive.toString(),
     onClick: () => state.onClick(state.activeIndex),
-    className: `${state.isActive ? "active": ""}`
+    className: `${state.isActive ? "active" : ""}`
   };
   if (typeof children === 'function') {
     return children(props);
@@ -103,7 +112,7 @@ export const Tab = ({ children }: { children: React.ReactNode }) => {
   // @ts-ignore
   props.className += ` ${children.props.className ? children.props.className : ''}`;
 
-  return isValidElement(children) ? cloneElement(children, {...children.props, ...props}) : children
+  return isValidElement(children) ? cloneElement(children, { ...children.props, ...props }) : children
 }
 
 export const Panel = ({ children }: { children: React.ReactNode }): any => {
