@@ -1,6 +1,6 @@
 {
   "name": "@redchili/react-tabs",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "标签页组件",
   "author": "xiamu14",
   "license": "MIT",
@@ -51,5 +51,5 @@
   "files": [
     "dist"
   ],
-  "gitHead": "962da3095d0e92f8c3cf69a05a4cd4a5ddf9154c"
+  "gitHead": "97e9e636d396ce42496c3f6b753f979f9cfa0835"
 }
