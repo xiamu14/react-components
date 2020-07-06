@@ -1,12 +1,12 @@
 import React from "react";
-import DescriptionPro, { Item, Schema } from "../packages/descriptions-pro/src";
+import DescriptionPro, { ItemType, Schema } from "../packages/descriptions-pro/src";
 
 import "antd/dist/antd.css";
 
 export default {
   title: "描述组件 pro 版"
 };
-const data: Item = {
+const data: ItemType = {
   name: "不对",
   age: 12,
   interest: "看书，电影，旅游，健身，创造",

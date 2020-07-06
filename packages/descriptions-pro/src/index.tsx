@@ -8,20 +8,20 @@ import { ReactNode } from "react";
 export interface Schema {
   label: string;
   dataIndex: string;
-  render?: (val: any) => ReactNode;
+  render?: (val: any, record: any) => ReactNode;
   span?: number;
   sort?: number;
   className?: string;
   prefixCls?: string;
 }
 
-export interface Item {
+export interface ItemType {
   [key: string]: string | number
 }
 
 export interface DescriptionsProProps extends DescriptionsProps {
   schema: Schema[];
-  data: Item;
+  data: ItemType;
   /** 文本居中显示(只有显示 border时 才有效果) */
   center?: boolean;
   groups?: { title: string, children: string[] }[]; // 分组显示，将内容分成不同的组用独立的 description 显示
@@ -35,7 +35,7 @@ export default function DescriptionsPro(props: DescriptionsProProps) {
 
   const middle = matcher(schema).addKeyFn("content", (val: Schema) => {
     if (Object.prototype.hasOwnProperty.call(val, "render")) {
-      return (val.render as (val: any) => ReactNode)(data[val.dataIndex]);
+      return (val.render as (val: any, record: any) => ReactNode)(data[val.dataIndex], data);
     }
     return data[val.dataIndex];
   }).remove(['render']);
