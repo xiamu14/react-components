@@ -1,5 +1,5 @@
-import React from "react";
-import { Tabs, Panel, Tab, usePrevTabState } from "../packages/react-tabs/src";
+import React, { useEffect } from "react";
+import { Tabs, Panel, Tab } from "../packages/react-tabs/src";
 
 export default {
   title: "标签页"
@@ -8,8 +8,6 @@ export default {
 export const ReactTabsNoProps = () => {
 
   const TabBox = ({ children }) => {
-    const { activeTab, prevTab } = usePrevTabState();
-    console.log('上一个便签页', prevTab, activeTab); // FIX: 初始值应该为 null;
     return (
       <div style={{ position: "relative" }}>
         <div style={{ display: "flex" }}>{children}</div>
@@ -19,14 +17,23 @@ export const ReactTabsNoProps = () => {
     )
   }
 
+  const Test = () => {
+    useEffect(()=>{
+      return () => {
+        console.log('Test will un mount');
+      }
+    }, [])
+    return <div>Test</div>
+  }
+
   return (
-    <Tabs defaultIndex={1}>
+    <Tabs defaultIndex={0}>
       <TabBox>
         <Tab><div className="test" style={{ width: '80px', fontSize: "20px"  }}>计划</div></Tab>
         <Tab><div style={{ width: '80px', fontSize: "20px"  }}>时间轴</div></Tab>
       </TabBox>
 
-      <Panel>Panel 0</Panel>
+      <Panel><Test></Test></Panel>
       <Panel>Panel 1</Panel>
     </Tabs>
   );

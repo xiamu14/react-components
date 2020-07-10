@@ -37,7 +37,7 @@ export const Tabs = ({ defaultIndex, children }: React.PropsWithChildren<TabsPro
   )
 }
 
-export const usePrevTabState = () => {
+export const useTabBoxState = () => {
   const { prevState, state } = useContext(TabsState);
 
   return { activeTab: state[0], prevTab: prevState[0] };
@@ -49,14 +49,6 @@ export const useTabState = () => {
   const setPrevIndex = prevState[1];
 
   const elements = useContext<ElementsType>(Elements)
-
-  // const tabIndex = useConstant(() => {
-  //   const currentIndex = elements.tabs
-  //   elements.tabs += 1
-
-  //   return currentIndex
-
-  // });
 
   const tabIndex = elements.tabs;
   elements.tabs += 1;
@@ -91,7 +83,7 @@ export const usePanelState = () => {
   });
 
 
-  return panelIndex === state[0];
+  return { isActive: panelIndex === state[0], index: panelIndex };
 }
 
 export const Tab = ({ children }: { children: React.ReactNode }) => {
@@ -114,7 +106,7 @@ export const Tab = ({ children }: { children: React.ReactNode }) => {
 }
 
 export const Panel = ({ children }: { children: React.ReactNode }): any => {
-  const isActive = usePanelState()
+  const { isActive } = usePanelState();
   // TODO: 这里需要优化动画
   return isActive ? children : null;
 }
