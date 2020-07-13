@@ -42,7 +42,8 @@ const Modal: React.FC<Props> = props => {
 
   const contentStyle = useSpring({
     config: { duration: duration / 3 * 2, delay: duration / 1 },
-    transform: `scale(${visible ? 1 : 0})`
+    transform: `scale(${visible ? 1 : 0})`,
+    opacity: visible ? 1 : 0,
   })
 
   return isMount
