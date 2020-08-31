@@ -24,13 +24,12 @@ interface Props {
 }
 
 export default function ReactQuill(props: Props) {
-  const { mediaRequest } = props;
+  const { value, mediaRequest } = props;
   const quillBoxEl = useRef<any>(null);
   const inputEl = useRef<any>(null);
   const [mediaType, setMediaType] = useState<"image" | "video">("image");
   const [editor, setEditor] = useState();
   const [initial, setInitial] = useState(false);
-  const { value } = props;
 
   // init quill
   useEffect(() => {
@@ -50,8 +49,6 @@ export default function ReactQuill(props: Props) {
             ); // 还要剔除 空内容 '<p><br></p>'
         }, 1000)
       );
-
-
     }
   }, [editor, props]);
 
@@ -96,10 +93,11 @@ export default function ReactQuill(props: Props) {
             });
           }
         }
+        // NOTE: 插入媒体文件以后，光标后移一位
         (editor as any).setSelection(1 + newRange, 1);
       });
     }
-  }, [editor, mediaRequest])
+  }, [editor, mediaRequest]);
 
   // initialValues
   useEffect(() => {
@@ -113,7 +111,7 @@ export default function ReactQuill(props: Props) {
 
   // reset
   useEffect(() => {
-    if (value === "" || value === "undefined" && editor) {
+    if (value === "" || (value === "undefined" && editor)) {
       const delta = (editor as any).clipboard.convert("");
       (editor as any).setContents(delta);
     }

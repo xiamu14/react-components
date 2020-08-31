@@ -83,8 +83,8 @@ export default class SearchBar extends PureComponent<Props, State> {
           schema={schema}
           initialValues={initialValues}
         >
-          <div className="btn_search_groups">
-            <Submit>搜索</Submit>
+          <div className="btn_search_group">
+            <Submit>查询</Submit>
             <div className="space w20" />
             {isSearch ? (
               <Button type="primary" onClick={this.onReset}>

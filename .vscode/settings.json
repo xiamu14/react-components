@@ -3,7 +3,8 @@
         "activeindex",
         "cascader",
         "isactive",
-        "jsnext"
+        "jsnext",
+        "redchili"
     ],
     "deno.enable": false,
     "typescript.tsdk": "node_modules/typescript/lib"
